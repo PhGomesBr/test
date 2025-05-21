@@ -1,0 +1,90 @@
+<mat-card>
+    <mat-card-title>Excluir Produto</mat-card-title>
+    <div class="scrollable-form">
+      <form>
+        <mat-form-field>
+            <input matInput placeholder="Nome" 
+            [(ngModel)]="product.proNome" 
+            name="proNome"
+            [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput 
+            placeholder="Descrição" 
+            [(ngModel)]="product.proDescricao" 
+            name="proDescricao" [disabled]="true"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput 
+            type="number" 
+            placeholder="Preço de custo (R$)" 
+            [(ngModel)]="product.proPrecoCusto" 
+            name="proPrecoCusto" step="0.01" min="0" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput 
+            type="number" 
+            placeholder="Preço de venda (R$)" 
+            [(ngModel)]="product.proPrecoVenda" 
+            name="proPrecoVenda" step="0.01" min="0" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput 
+            type="number" 
+            placeholder="Quantidade em estoque" 
+            [(ngModel)]="product.proQuantidadeEstoque" 
+            name="proQuantidadeEstoque" min="0" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Categoria" 
+            [(ngModel)]="product.proCategoria" 
+            name="proCategoria" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput 
+            placeholder="Código de barras" 
+            [(ngModel)]="product.proCodigoBarras" 
+            name="proCodigoBarras" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput 
+            placeholder="Marca" 
+            [(ngModel)]="product.proMarca" 
+            name="proMarca" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput 
+            placeholder="Unidade de medida" 
+            [(ngModel)]="product.proUnidadeMedida" 
+            name="proUnidadeMedida" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Produto Ativo?</mat-label>
+            <mat-select [(ngModel)]="product.proAtivo" name="proAtivo" [disabled]="true">
+              <mat-option [value]="true">Sim</mat-option>
+              <mat-option [value]="false">Não</mat-option>
+            </mat-select>
+          </mat-form-field>
+     
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker1" placeholder="Data de Cadastro" [(ngModel)]="product.proDataCadastro" name="proDataCadastro" [disabled]="true">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+     
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker2" placeholder="Data de Atualização" [(ngModel)]="product.proDataAtualizacao" name="proDataAtualizacao" [disabled]="true">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+    <button mat-raised-button (click)="deleteProduct()" color="primary">
+        Excluir
+    </button>
+   
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>    
+      </form> 
+    </div>
+  </mat-card>
+  

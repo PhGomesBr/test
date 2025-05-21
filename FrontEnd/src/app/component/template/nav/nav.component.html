@@ -1,0 +1,53 @@
+<mat-sidenav-container class="container">
+    <!-- Barra lateral fixa com links de navegação -->
+    <mat-sidenav class="sidenav" mode="side" opened fixedInViewport="true" fixedTopGap="64">
+        <mat-nav-list class="nav-list">
+            <!-- Link para a página inicial -->
+            <a mat-list-item routerLink="/">
+                <span>
+                    <i class="material-icons">home</i>
+                    Início
+                </span>
+            </a>
+            <!-- Link para a página de produtos -->
+            <a mat-list-item routerLink="/products">
+                <span>
+                    <i class="material-icons">storefront</i>
+                    Produtos
+                </span>
+            </a>
+            <!-- Link para a página de cliente -->
+            <a mat-list-item routerLink="/clientes">
+                <span>
+                    <i class="material-icons">person</i> 
+                    Cliente
+                </span>
+            </a>
+            <!-- Link para a página de fornecedor -->
+            <a mat-list-item routerLink="/fornecedor">
+                <span>
+                    <i class="material-icons">business</i> 
+                    Fornecedor
+                </span>
+            </a>
+            <!-- Link para a página de contato -->
+            <a mat-list-item routerLink="/contato">
+                <span>
+                    <i class="material-icons">contacts</i> 
+                    Contato
+                </span>    
+            </a>
+            <!-- Link para a página de pagamentos -->
+            <a mat-list-item routerLink="/formaPagamento">
+                <span>
+                    <i class="material-icons">payments</i> 
+                    Pagamentos
+                </span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <!-- Conteúdo principal da página -->
+    <mat-sidenav-content class="content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

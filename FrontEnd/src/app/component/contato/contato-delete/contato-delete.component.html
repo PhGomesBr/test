@@ -1,0 +1,23 @@
+<mat-card>
+    <mat-card-title>Excluir Contato</mat-card-title>
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Telefone Comercial" [value]="contato.conTelefoneComercial" name="conTelefoneComercial" disabled>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Celular" [value]="contato.conCelular" name="conCelular" disabled>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="E-mail" [value]="contato.conEmail" name="conEmail" disabled>
+        </mat-form-field>
+    </form>
+
+    <button mat-raised-button (click)="deleteContato()" color="warn">
+        Excluir
+    </button>
+   
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
+
+</mat-card>

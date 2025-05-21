@@ -1,0 +1,33 @@
+<!-- Card que contém o formulário para criar um novo contato -->
+<mat-card>
+    <!-- Título do card -->
+    <mat-card-title>Novo Contato</mat-card-title>
+
+    <!-- Formulário para entrada de dados do contato -->
+    <form>
+        <!-- Campo para inserir o telefone comercial -->
+        <mat-form-field>
+            <input matInput placeholder="Telefone comercial" [(ngModel)]="contato.conTelefoneComercial" name="conTelefoneComercial">
+        </mat-form-field>
+
+        <!-- Campo para inserir o número de celular -->
+        <mat-form-field>
+            <input matInput placeholder="Celular" [(ngModel)]="contato.conCelular" name="conCelular">
+        </mat-form-field>
+
+        <!-- Campo para inserir o e-mail -->
+        <mat-form-field>
+            <input matInput placeholder="E-mail" [(ngModel)]="contato.conEmail" name="conEmail">
+        </mat-form-field>
+    </form>
+
+    <!-- Botão para salvar o contato -->
+    <button mat-raised-button (click)="createContato()" color="primary">
+        Salvar
+    </button>
+   
+    <!-- Botão para cancelar a operação -->
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
+</mat-card>

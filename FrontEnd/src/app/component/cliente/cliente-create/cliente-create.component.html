@@ -1,0 +1,38 @@
+<!-- Card que contém o formulário para criar um novo cliente -->
+<mat-card>
+    <!-- Título do card -->
+    <mat-card-title class="titulo">Novo Cliente</mat-card-title>
+    
+    <!-- Formulário para entrada de dados do cliente -->
+    <form class="formulario">
+        <!-- Campo de entrada para o nome do cliente -->
+        <mat-form-field>
+            <input matInput placeholder="Nome" [(ngModel)]="cliente.cliNome" name="cliNome">
+        </mat-form-field>
+        
+        <!-- Campo de entrada para o CPF do cliente -->
+        <mat-form-field>
+            <input matInput placeholder="CPF " [(ngModel)]="cliente.cliCpf" name="cliCpf">
+        </mat-form-field>
+        
+        <!-- Campo de entrada para o e-mail do cliente -->
+        <mat-form-field>
+            <input matInput placeholder="E-mail" [(ngModel)]="cliente.cliEmail" name="cliEmail">
+        </mat-form-field>
+        
+        <!-- Campo de entrada para o telefone do cliente -->
+        <mat-form-field>
+            <input matInput placeholder="Telefone " [(ngModel)]="cliente.cliTelefone" name="cliTelefone">
+        </mat-form-field>
+    </form>
+
+    <!-- Botão para salvar os dados do cliente -->
+    <button mat-raised-button (click)="createCliente()" color="primary">
+        Salvar
+    </button>
+   
+    <!-- Botão para cancelar a operação -->
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
+</mat-card>

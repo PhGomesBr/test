@@ -1,0 +1,74 @@
+<mat-card>
+    <mat-card-title>Nova Forma de Pagamento</mat-card-title>
+    <form>
+        <!-- Campo de entrada para a descrição da forma de pagamento -->
+        <mat-form-field>
+            <input 
+                matInput 
+                placeholder="Descrição" 
+                [(ngModel)]="formaPagamento.fpgDescricao" 
+                name="fpgDescricao"
+                required>
+        </mat-form-field>
+
+        <!-- Campo de entrada para o status ativo -->
+        <mat-form-field>
+            <mat-label>Ativo</mat-label>
+            <mat-select 
+                [(ngModel)]="formaPagamento.fpgAtivo" 
+                name="fpgAtivo">
+                <mat-option [value]="true">Sim</mat-option>
+                <mat-option [value]="false">Não</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Campo de entrada para permite parcelamento -->
+        <mat-form-field>
+            <mat-label>Permite Parcelamento</mat-label>
+            <mat-select 
+                [(ngModel)]="formaPagamento.fpgPermiteParcelamento" 
+                name="fpgPermiteParcelamento">
+                <mat-option [value]="true">Sim</mat-option>
+                <mat-option [value]="false">Não</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Campo de entrada para número máximo de parcelas -->
+        <mat-form-field>
+            <input 
+                matInput 
+                type="number" 
+                placeholder="Número Máximo de Parcelas" 
+                [(ngModel)]="formaPagamento.fpgNumeroMaximoParcelas" 
+                name="fpgNumeroMaximoParcelas"
+                min="1">
+        </mat-form-field>
+
+        <!-- Campo de entrada para taxa adicional -->
+        <mat-form-field>
+            <input 
+                matInput 
+                type="number" 
+                placeholder="Taxa Adicional (%)" 
+                [(ngModel)]="formaPagamento.fpgTaxaAdicional" 
+                name="fpgTaxaAdicional"
+                step="0.01"
+                min="0">
+        </mat-form-field>
+    </form>
+
+    <!-- Botão para salvar a nova forma de pagamento -->
+    <button 
+        mat-raised-button 
+        (click)="createFormaPagamento()" 
+        color="primary">
+        Salvar
+    </button>
+   
+    <!-- Botão para cancelar a operação -->
+    <button 
+        mat-raised-button 
+        (click)="cancel()">
+        Cancelar
+    </button>
+</mat-card>
