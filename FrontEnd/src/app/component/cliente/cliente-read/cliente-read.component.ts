@@ -1,5 +1,5 @@
 // Importações necessárias para o componente
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Cliente } from '../cliente.model';
 import { ClienteService } from '../cliente.service'; 
 
@@ -10,21 +10,18 @@ import { ClienteService } from '../cliente.service';
   styleUrls: ['./cliente-read.component.css'] // Caminho para o arquivo de estilos CSS do componente
 })
 export class ClienteReadComponent {
-  // Array que armazena os dados dos clientes
-  clientes!: Cliente[];
-
-  // Colunas exibidas na tabela
+  @Input() // Termo de pesquisa para filtrar clientees
+  cliente!: Cliente[]; // Lista de clientees
   displayedColumns = ['cliId', 'cliNome', 'cliCpf', 'cliEmail', 'cliTelefone', 'action'];
 
-  // Construtor que injeta o serviço ClienteService
-  constructor(private clienteService: ClienteService) { }
+  // Injeta o serviço ClienteService no construtor
+  constructor(private clienteService: ClienteService) {}
 
-  // Método chamado ao inicializar o componente
+  // Método executado ao inicializar o componente
   ngOnInit(): void {
-    // Chama o método 'read' do serviço para buscar os dados dos clientes
-    this.clienteService.read().subscribe(clientes => {
-      this.clientes = clientes; // Armazena os dados retornados no array 'cliente'
-      console.log(clientes); // Exibe os dados no console para depuração
+    this.clienteService.read().subscribe(cliente => {
+      this.cliente = cliente; // Atribui os dados recebidos à lista de clientees
+      console.log(cliente); // Exibe os dados no console para depuração
     });
   }
 }

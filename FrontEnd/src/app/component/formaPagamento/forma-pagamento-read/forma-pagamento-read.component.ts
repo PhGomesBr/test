@@ -1,5 +1,5 @@
 // Importa o decorador Component do Angular
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 // Importa o modelo de dados FormaPagamento
 import { FormaPagamento } from '../formaPagamento.model';
 // Importa o serviço responsável por operações relacionadas a FormaPagamento
@@ -12,20 +12,18 @@ import { formaPagamentoService } from '../formaPagamento.service';
   styleUrls: ['./forma-pagamento-read.component.css'] // Caminho para o arquivo de estilos CSS
 })
 export class FormaPagamentoReadComponent {
-    // Array para armazenar as formas de pagamento retornadas do serviço
-    formaPagamento!: FormaPagamento[];
-    // Define as colunas que serão exibidas na tabela
-    displayedColumns = ['fpgId', 'fpgDescricao', 'action'];
+  @Input() // Termo de pesquisa para filtrar formaPagamentoes
+  formaPagamento!: FormaPagamento[]; // Lista de formaPagamentoes
+  displayedColumns = ['fpgId', 'fpgDescricao', 'action'];
 
-    // Injeta o serviço formaPagamentoService no construtor
-    constructor(private formaPagamentoService: formaPagamentoService) { }
+  // Injeta o serviço FormaPagamentoService no construtor
+  constructor(private formaPagamentoService: formaPagamentoService) {}
 
-    // Método executado ao inicializar o componente
-    ngOnInit(): void {
-      // Chama o método read do serviço para buscar as formas de pagamento
-      this.formaPagamentoService.read().subscribe(formaPagamento => {
-        this.formaPagamento = formaPagamento; // Armazena as formas de pagamento no array
-        console.log(formaPagamento); // Exibe as formas de pagamento no console
-      });
-    }
+  // Método executado ao inicializar o componente
+  ngOnInit(): void {
+    this.formaPagamentoService.read().subscribe(formaPagamento => {
+      this.formaPagamento = formaPagamento; // Atribui os dados recebidos à lista de formaPagamentoes
+      console.log(formaPagamento); // Exibe os dados no console para depuração
+    });
+  }
 }

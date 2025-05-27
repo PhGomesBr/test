@@ -40,3 +40,9 @@ button:active {
     transform: scale(0.95); /* Efeito de "afundar" levemente ao clicar */
     box-shadow: 0 3px 12px rgba(255, 45, 198, 0.4); /* Redução da sombra para simular profundidade */
 }
+
+.pesquisa{
+    margin: 10px; 
+    padding: 5px; 
+    width: 250px
+}

@@ -3,6 +3,12 @@
 <button mat-raised-button (click)="navigateToFormaPagamentoCreate()" color="primary">
     Nova Forma de pagamento
 </button>
-<app-forma-pagamento-read></app-forma-pagamento-read>
+<input 
+type="text" 
+placeholder="Pesquisar formaPagamento" 
+[(ngModel)]="searchTerm" 
+(input)="filterFormaPagamento()"
+class="pesquisa">
+<app-forma-pagamento-read [formaPagamento]="filteredFormaPagamento"></app-forma-pagamento-read>
     </mat-card>
 </main>

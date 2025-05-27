@@ -1,5 +1,5 @@
 // Importa o decorador Component do Angular
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 // Importa o modelo de dados Contato
 import { Contato } from '../contato-read.model';
 // Importa o serviço responsável por operações relacionadas a Contato
@@ -12,20 +12,18 @@ import { contatoService } from '../contato.service';
   styleUrls: ['./contato-read.component.css'] // Caminho para o arquivo de estilos CSS
 })
 export class ContatoReadComponent {
-  // Array para armazenar os contatos retornados do serviço
-  contato!: Contato[];
-  // Define as colunas que serão exibidas na tabela
+  @Input() // Termo de pesquisa para filtrar contatoes
+  contato!: Contato[]; // Lista de contatoes
   displayedColumns = ['conId', 'conTelefoneComercial', 'conCelular', 'conEmail', 'action'];
 
-  // Injeta o serviço contatoService no construtor
-  constructor(private contatoService: contatoService) { }
+  // Injeta o serviço ContatoService no construtor
+  constructor(private contatoService: contatoService) {}
 
   // Método executado ao inicializar o componente
   ngOnInit(): void {
-    // Chama o método read do serviço para buscar os contatos
     this.contatoService.read().subscribe(contato => {
-      this.contato = contato; // Armazena os contatos no array
-      console.log(contato); // Exibe os contatos no console
+      this.contato = contato; // Atribui os dados recebidos à lista de contatoes
+      console.log(contato); // Exibe os dados no console para depuração
     });
   }
 }
