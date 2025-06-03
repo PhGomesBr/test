@@ -42,7 +42,7 @@ const routes: Routes = [
   component: ClienteCrudComponent
 },
 {
-path: "clientes/create",
+path: "cliente/create",
 component: ClienteCreateComponent
 },
 {

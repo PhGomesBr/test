@@ -3,6 +3,7 @@ main {
     background: linear-gradient(135deg, #121212 0%, #14142b 100%); /* Gradiente escuro para o fundo da página */
     min-height: 75vh; /* Define a altura mínima do conteúdo principal */
     padding: 40px 20px; /* Espaçamento interno do conteúdo */
+    
 }
 
 /* Estilização dos cartões (mat-card do Angular Material) */
