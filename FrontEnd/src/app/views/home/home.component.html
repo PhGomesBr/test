@@ -23,8 +23,10 @@
         <p>22</p>
       </div>
       <div class="card warning">
-        <h3><span>⚠️</span> Estoque Baixo</h3>
-        <p>5 produtos</p>
+        <h3><span>⚠️</span> Estoque Baixo <p>
+          <!-- chama o estoque baixo-->
+          {{ estoqueBaixo }} produto{{ estoqueBaixo === 1 ? '' : 's' }}</p></h3>
+        
       </div>
     </section>
     <section class="charts">

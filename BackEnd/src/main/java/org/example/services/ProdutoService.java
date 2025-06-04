@@ -55,4 +55,9 @@ public class ProdutoService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    //aviso caso o produto estiiver abaixo do numero escolido
+//    public long contarProdutosComEstoqueBaixo() {
+//        return repository.countByQuantidadeEstoqueLessThan(5);
+//    }
 }

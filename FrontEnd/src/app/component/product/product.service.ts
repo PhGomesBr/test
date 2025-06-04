@@ -60,4 +60,11 @@ this._productCount = count;
 getProductCount(): number {
 return this._productCount;
 }
+
+
+
+//ação para verificar o estoque
+getEstoqueBaixo() {
+  return this.http.get<number>('http://localhost:8080/produtos/estoque-baixo');
+}
 }

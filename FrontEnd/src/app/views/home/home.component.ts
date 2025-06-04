@@ -10,10 +10,18 @@ import { ProductService } from 'src/app/component/product/product.service';
 export class HomeComponent implements OnInit{
     constructor(public productService: ProductService) {}
     productCount: number = 0;
-  
+    estoqueBaixo: number = 0;
+
     ngOnInit(): void {
       this.productService.read().subscribe(products => {
         this.productCount = products.length; // Conta a quantidade de produtos
-      const count = this.productService.getProductCount();
-    });}
-  }
+      });
+
+      // Busca o estoque baixo
+      this.productService.getEstoqueBaixo().subscribe({
+        next: (qtd) => this.estoqueBaixo = qtd,
+        error: (err) => console.error('Erro ao buscar estoque baixo', err)
+      });
+    }
+
+}
