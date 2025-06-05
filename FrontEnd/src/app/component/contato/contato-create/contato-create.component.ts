@@ -13,6 +13,7 @@ import { contatoService } from '../contato.service'; // Serviço para manipulaç
 export class ContatoCreateComponent implements OnInit {
   // Objeto contato inicializado com valores vazios
   contato: Contato = {
+    conTelefone: '', // Número de telefone do contato
     conCelular: '', // Número de celular do contato
     conTelefoneComercial: '', // Telefone comercial do contato
     conEmail: '', // E-mail do contato

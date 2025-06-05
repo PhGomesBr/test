@@ -33,7 +33,10 @@ export class ClienteCrudComponent implements OnInit {
     filterCliente(): void {
       const term = this.searchTerm.toLowerCase();
       this.filteredCliente = this.allCliente.filter(f =>
-        f.cliNome.toLowerCase().includes(term)
+        f.cliNome.toLowerCase().includes(term) ||
+        f.cliCpf.toLowerCase().includes(term) ||
+        f.cliEmail.toLowerCase().includes(term) ||
+        f.cliTelefone.toLowerCase().includes(term)
       );
     }
 }

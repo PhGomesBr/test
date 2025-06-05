@@ -32,8 +32,10 @@ export class ContatoCrudComponent implements OnInit {
     // Método para filtrar a lista de contatoes com base no termo de pesquisa
     filterContato(): void {
       const term = this.searchTerm.toLowerCase();
-      this.filteredContato = this.allContato.filter(f =>
-        f.conEmail.toLowerCase().includes(term)
+      this.filteredContato = this.allContato.filter(C =>
+        C.conEmail.toLowerCase().includes(term) ||
+        C.conTelefoneComercial.toLowerCase().includes(term) ||
+        C.conCelular.toLowerCase().includes(term)
       );
     }
 }
