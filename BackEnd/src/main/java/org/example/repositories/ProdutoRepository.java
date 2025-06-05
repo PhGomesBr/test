@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     // Conta quantos produtos têm o estoque abaixo de 5
-    //long countByQuantidadeEstoqueLessThan(int quantidade);
+    long countByProQuantidadeEstoqueLessThan(int quantidade);
 }

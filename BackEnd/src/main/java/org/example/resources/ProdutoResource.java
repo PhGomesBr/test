@@ -32,13 +32,11 @@ public class ProdutoResource {
         Produto obj = produtoService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
-/*
-    //para o estoque baixo
     @GetMapping("/estoque-baixo")
-    public long getProdutosComEstoqueBaixo() {
-        return produtoService.contarProdutosComEstoqueBaixo();
+    public ResponseEntity<Long> getProdutosComEstoqueBaixo() {
+        long count = produtoService.contarProdutosComEstoqueBaixo();
+        return ResponseEntity.ok(count);
     }
-*/
     @PostMapping
     public ResponseEntity<Produto> insert(@RequestBody Produto produto) {
         Produto createdProduto = produtoService.insert(produto);

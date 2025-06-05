@@ -57,7 +57,7 @@ public class ProdutoService {
     }
 
     //aviso caso o produto estiiver abaixo do numero escolido
-//    public long contarProdutosComEstoqueBaixo() {
-//        return repository.countByQuantidadeEstoqueLessThan(5);
-//    }
+    public long contarProdutosComEstoqueBaixo() {
+        return repository.countByProQuantidadeEstoqueLessThan(5);
+    }
 }
