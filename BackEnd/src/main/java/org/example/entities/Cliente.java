@@ -85,4 +85,21 @@ public class Cliente implements Serializable {
     public void setCliTelefone(String cliTelefone) {
         this.cliTelefone = cliTelefone;
     }
+
+    //novo
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
 }
