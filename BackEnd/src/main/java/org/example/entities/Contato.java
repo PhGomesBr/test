@@ -1,5 +1,7 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,6 +14,11 @@ public class Contato implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CON_ID")
     private Long conId;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinColumn(name = "CON_CLI_ID")
+    private Cliente conCliente;
 
     @NotBlank(message = "Celular é obrigatório")
     @Size(max = 14, message = "Celular inválido")

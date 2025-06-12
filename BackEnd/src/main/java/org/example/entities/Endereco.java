@@ -1,5 +1,7 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,6 +14,11 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "END_ID")
     private Long endId;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinColumn(name = "END_CLI_ID")
+    private Cliente endCliente;
 
     @NotBlank(message = "Rua é obrigatório")
     @Size(max = 150, message = "Rua deve ter no máximo 150 caracteres")

@@ -5,11 +5,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class ClienteDto {
+    //cliente
     private Long cliId;
     private String cliNome;
     private String cliCpf;
-    private String cliEmail;
-    private String cliTelefone;
 
     //endereco
     private String endRua;
@@ -52,22 +51,6 @@ public class ClienteDto {
 
     public void setCliCpf(String cliCpf) {
         this.cliCpf = cliCpf;
-    }
-
-    public String getCliEmail() {
-        return cliEmail;
-    }
-
-    public void setCliEmail(String cliEmail) {
-        this.cliEmail = cliEmail;
-    }
-
-    public String getCliTelefone() {
-        return cliTelefone;
-    }
-
-    public void setCliTelefone(String cliTelefone) {
-        this.cliTelefone = cliTelefone;
     }
 
     public String getEndRua() {
