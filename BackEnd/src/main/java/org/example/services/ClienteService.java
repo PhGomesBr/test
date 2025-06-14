@@ -33,8 +33,7 @@ public class ClienteService {
 
     public Cliente findById(Long id) {
         Optional<Cliente> obj = repository.findById(id);
-        return obj.orElseThrow(() ->
-                new ResourceNotFoundException(id));
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Cliente insert(Cliente obj) {
@@ -44,38 +43,41 @@ public class ClienteService {
             enderecoRepository.saveAll(obj.getEnderecos());
             return obj;
         } catch (DataIntegrityViolationException e) {
-            throw new ValueBigForAtributeException(e
-                    .getMessage());
+            throw new ValueBigForAtributeException(e.getMessage());
         }
     }
 
-    public Cliente update(Long Id, ClienteDto objDto) {
+    public Cliente update(Long id, ClienteDto objDto) {
         try {
-            Cliente entity = findById(Id);
+            Cliente entity = findById(id);
 
-            //Atualiza os dados os cliente
+            // Atualiza os dados do cliente
             entity.setCliNome(objDto.getCliNome());
             entity.setCliCpf(objDto.getCliCpf());
 
-            //Atualiza os dados os cliente
-            Endereco endereco = entity.getEnderecos().get(0);
+            // Atualiza o endereço do cliente (assumindo que há apenas um)
+            if (entity.getEnderecos().isEmpty()) {
+                throw new RuntimeException("Cliente não possui endereço cadastrado.");
+            }
 
-            //Assuindo que ha apenas um endereço por cliente
+            Endereco endereco = entity.getEnderecos().get(0);
             endereco.setEndRua(objDto.getEndRua());
             endereco.setEndNumero(objDto.getEndNumero());
             endereco.setEndCidade(objDto.getEndCidade());
             endereco.setEndCep(objDto.getEndCep());
             endereco.setEndEstado(objDto.getEndEstado());
 
-            //Atualiza o contato
-            Contato contato = entity.getContatos().get(0);
+            // Atualiza o contato (assumindo que há apenas um)
+            if (entity.getContatos().isEmpty()) {
+                throw new RuntimeException("Cliente não possui contato cadastrado.");
+            }
 
-            //Assumindo que ha apenas um contato por cliente
+            Contato contato = entity.getContatos().get(0);
             contato.setConCelular(objDto.getConCelular());
             contato.setConTelefoneComercial(objDto.getConTelefoneComercial());
             contato.setConEmail(objDto.getConEmail());
 
-            //Salva as alterações
+            // Salva as alterações
             repository.save(entity);
             return entity;
         } catch (DataIntegrityViolationException e) {
@@ -92,42 +94,45 @@ public class ClienteService {
     }
 
     public Cliente fromDTO(ClienteDto objDto) {
-        Cliente fornec = new Cliente(null, objDto.getCliNome(), objDto.getCliCpf());
+        Cliente cliente = new Cliente(null, objDto.getCliNome(), objDto.getCliCpf());
 
-        Endereco ender = new Endereco(null, fornec, objDto.getEndRua(), objDto.getEndNumero(),
-                objDto.getEndCidade(), objDto.getEndCep(),
-                objDto.getEndEstado());
+        Endereco endereco = new Endereco(null, cliente, objDto.getEndRua(), objDto.getEndNumero(),
+                objDto.getEndCidade(), objDto.getEndCep(), objDto.getEndEstado());
 
-        Contato contato = new Contato(null, fornec, objDto.getConCelular(), objDto.getConTelefoneComercial(),
-                objDto.getConEmail());
+        Contato contato = new Contato(null, cliente, objDto.getConCelular(),
+                objDto.getConTelefoneComercial(), objDto.getConEmail());
 
-        fornec.getEnderecos().add(ender);
-        fornec.getContatos().add(contato);
+        cliente.getEnderecos().add(endereco);
+        cliente.getContatos().add(contato);
 
-        return fornec;
+        return cliente;
     }
 
-    public ClienteDto toNewDTO(Cliente obj) {
+    public ClienteDto toDto(Cliente obj) {
         ClienteDto dto = new ClienteDto();
 
-// Mapeie os atributos comuns entre Cliente e ClienteNewDTO
+        // Atributos comuns
         dto.setCliId(obj.getCliId());
         dto.setCliNome(obj.getCliNome());
         dto.setCliCpf(obj.getCliCpf());
 
-// Atributos específicos de Endereco
-        Endereco endereco = obj.getEnderecos().get(0);
-        dto.setEndRua(endereco.getEndRua());
-        dto.setEndNumero(endereco.getEndNumero());
-        dto.setEndCidade(endereco.getEndCidade());
-        dto.setEndCep(endereco.getEndCep());
-        dto.setEndEstado(endereco.getEndEstado());
+        // Atributos de endereço (assumindo que há pelo menos um)
+        if (!obj.getEnderecos().isEmpty()) {
+            Endereco endereco = obj.getEnderecos().get(0);
+            dto.setEndRua(endereco.getEndRua());
+            dto.setEndNumero(endereco.getEndNumero());
+            dto.setEndCidade(endereco.getEndCidade());
+            dto.setEndCep(endereco.getEndCep());
+            dto.setEndEstado(endereco.getEndEstado());
+        }
 
-// Atributos específicos de Contato
-        Contato contato = obj.getContatos().get(0);
-        dto.setConCelular(contato.getConCelular());
-        dto.setConTelefoneComercial(contato.getConTelefoneComercial());
-        dto.setConEmail(contato.getConEmail());
+        // Atributos de contato (assumindo que há pelo menos um)
+        if (!obj.getContatos().isEmpty()) {
+            Contato contato = obj.getContatos().get(0);
+            dto.setConCelular(contato.getConCelular());
+            dto.setConTelefoneComercial(contato.getConTelefoneComercial());
+            dto.setConEmail(contato.getConEmail());
+        }
 
         return dto;
     }

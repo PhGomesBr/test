@@ -22,7 +22,7 @@ public class ClienteResource {
 
     @GetMapping
     public ResponseEntity<List<Cliente>> getAll() {
-        List<Cliente> funcoes = clienteService.getAll();
+        List<Cliente> funcoes = clienteService.findAll();
         return ResponseEntity.ok(funcoes);
     }
 

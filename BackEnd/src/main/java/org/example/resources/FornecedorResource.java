@@ -3,8 +3,6 @@ package org.example.resources;
 import org.example.entities.Fornecedor;
 import org.example.services.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/fornecedor")
 public class FornecedorResource {
-
-
     @Autowired
     private FornecedorService fornecedorService;
 
     @GetMapping
     public ResponseEntity<List<Fornecedor>> getAll() {
-        List<Fornecedor> funcoes = fornecedorService.getAll();
+        List<Fornecedor> funcoes = fornecedorService.findAll();
         return ResponseEntity.ok(funcoes);
     }
 
@@ -40,8 +36,8 @@ public class FornecedorResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Fornecedor fornecedor) {
-        if (fornecedorService.update(id, fornecedor)) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Fornecedor forneceodr) {
+        if (fornecedorService.update(id, forneceodr)) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
@@ -50,8 +46,8 @@ public class FornecedorResource {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        fornecedorService.delete(id);
+        fornecedorService.deleteFornecedor(id);
         return ResponseEntity.noContent().build();
     }
-
+    
 }
