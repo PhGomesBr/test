@@ -108,7 +108,7 @@ public class ClienteService {
         return cliente;
     }
 
-    public ClienteDto toDto(Cliente obj) {
+    public ClienteDto toNewDto(Cliente obj) {
         ClienteDto dto = new ClienteDto();
 
         // Atributos comuns

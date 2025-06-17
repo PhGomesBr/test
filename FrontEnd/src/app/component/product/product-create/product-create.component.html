@@ -155,6 +155,7 @@
             </mat-form-field>
             <!--Datas-->
             <mat-form-field>
+                <mat-label>Data de Cadastro</mat-label>
                 <input matInput [matDatepicker]="picker1" placeholder="Data de Cadastro"
                     [(ngModel)]="product.proDataCadastro" name="proDataCadastro" required>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -162,6 +163,7 @@
             </mat-form-field>
 
             <mat-form-field>
+                <mat-label>Data de Atualização</mat-label>
                 <input matInput [matDatepicker]="picker2" placeholder="Data de Atualização"
                     [(ngModel)]="product.proDataAtualizacao" name="proDataAtualizacao" required>
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>

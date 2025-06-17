@@ -1,10 +1,13 @@
 package org.example.dto;
 
 
+import org.hibernate.validator.constraints.br.CPF;
+
 public class ClienteDto {
     //cliente
     private Long cliId;
     private String cliNome;
+    @CPF(message = "CPF inválido")
     private String cliCpf;
 
     //endereco

@@ -106,7 +106,7 @@ public class FornecedorService {
         return fornec;
     }
 
-    public FornecedorDto toNewDTO(Fornecedor obj) {
+    public FornecedorDto toNewDto(Fornecedor obj) {
         FornecedorDto dto = new FornecedorDto();
 
 // Mapeie os atributos comuns entre Fornecedor e FornecedorNewDTO

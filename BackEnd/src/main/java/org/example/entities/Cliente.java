@@ -31,7 +31,6 @@ public class Cliente implements Serializable {
     private String cliNome;
 
     @NotBlank(message = "CPF é obrigatório")
-    @CPF(message = "CPF inválido")
     @Column(name = "CLI_CPF", length = 11, nullable = false)
     private String cliCpf;
 

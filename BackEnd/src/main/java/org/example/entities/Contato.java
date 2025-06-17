@@ -16,12 +16,12 @@ public class Contato implements Serializable {
     private Long conId;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "CON_CLI_ID")
     private Cliente conCliente;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "CON_FOR_ID")
     private Fornecedor conFornecedor;
 
@@ -40,17 +40,26 @@ public class Contato implements Serializable {
     @Column(length = 100, name = "CON_EMAIL", nullable = false)
     private String conEmail;
 
-    public Contato(Object o, Fornecedor fornec, String conCelular, String conTelefoneComercial, String conEmail) {
+    public Contato() {
     }
 
-    public Contato(Long conId, Cliente conCliente,String conCelular, Fornecedor conFornecedor, String conTelefoneComercial, String conEmail) {
+    public Contato(Long conId, Fornecedor conFornecedor, String conCelular, String conTelefoneComercial, String conEmail) {
         this.conId = conId;
-        this.conCliente = conCliente;
         this.conFornecedor = conFornecedor;
         this.conCelular = conCelular;
         this.conTelefoneComercial = conTelefoneComercial;
         this.conEmail = conEmail;
     }
+
+    public Contato(Long conId, Cliente conCliente, String conCelular, String conTelefoneComercial, String conEmail) {
+        this.conId = conId;
+        this.conCliente = conCliente;
+        this.conCelular = conCelular;
+        this.conTelefoneComercial = conTelefoneComercial;
+        this.conEmail = conEmail;
+    }
+
+
 
     public Long getConId() {
         return conId;
@@ -58,6 +67,22 @@ public class Contato implements Serializable {
 
     public void setConId(Long conId) {
         this.conId = conId;
+    }
+
+    public Cliente getConCliente() {
+        return conCliente;
+    }
+
+    public void setConCliente(Cliente conCliente) {
+        this.conCliente = conCliente;
+    }
+
+    public Fornecedor getConFornecedor() {
+        return conFornecedor;
+    }
+
+    public void setConFornecedor(Fornecedor conFornecedor) {
+        this.conFornecedor = conFornecedor;
     }
 
     public String getConCelular() {

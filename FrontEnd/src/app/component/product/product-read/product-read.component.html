@@ -11,6 +11,11 @@
         <th mat-header-cell *matHeaderCellDef>Nome</th>
         <td mat-cell *matCellDef="let row">{{row.proNome}}</td>
       </ng-container>
+
+      <ng-container matColumnDef="proQuantidadeEstoque">
+        <th mat-header-cell *matHeaderCellDef>Estoque</th>
+        <td mat-cell *matCellDef="let row">{{row.proQuantidadeEstoque}}</td>
+      </ng-container>
  
       <!-- Price Column -->
       <ng-container matColumnDef="proPrecoCusto">
