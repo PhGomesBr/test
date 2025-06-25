@@ -1,0 +1,27 @@
+/* Estilo do contêiner do gráfico */
+.chart-container {
+    width: 100%;
+    max-width: 800px; /* Define uma largura máxima */
+    margin: 0 auto; /* Centraliza o gráfico na página */
+    padding: 20px; /* Adiciona espaço ao redor do gráfico */
+    background: linear-gradient(145deg, #1e1e2f, #2e2e3f); /* Fundo com gradiente */
+    border-radius: 16px; /* Bordas arredondadas */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Adiciona sombra */
+}
+
+/* Estilo do canvas do gráfico */
+canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* Bordas arredondadas no gráfico */
+}
+
+/* Texto do título do gráfico */
+.chart-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff; /* Cor do texto */
+    margin-bottom: 20px; /* Espaço abaixo do título */
+}

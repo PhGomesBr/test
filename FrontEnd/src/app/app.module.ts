@@ -46,6 +46,9 @@ import { MatSelectModule } from '@angular/material/select'; // Adicionado
 import { MatDatepickerModule } from '@angular/material/datepicker'; // Adicionado
 import { MatNativeDateModule } from '@angular/material/core'; // Adicionado
 import { MatIconModule } from '@angular/material/icon';
+import { GraficoVendasComponent } from './component/grafico-vendas/grafico-vendas.component';
+import { VendaSemanaComponent } from './component/venda-semana/venda-semana.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,9 @@ import { MatIconModule } from '@angular/material/icon';
     FormaPagamentoDeleteComponent,
     ContatoUpdateComponent,
     ContatoDeleteComponent,
+    GraficoVendasComponent,
+    VendaSemanaComponent,
+    
     
   ],
   imports: [
@@ -99,7 +105,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,           // Adicionado
     MatNativeDateModule,           // Adicionado
     FormsModule, // Adicione aqui
-    MatIconModule
+    MatIconModule,
+    NgChartsModule, // Importando o módulo de gráficos
   ],
   providers: [],
   bootstrap: [AppComponent]
