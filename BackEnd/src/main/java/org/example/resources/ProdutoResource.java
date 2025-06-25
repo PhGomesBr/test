@@ -2,6 +2,7 @@ package org.example.resources;
 
 import org.example.entities.Produto;
 import org.example.services.ProdutoService;
+import org.example.services.exeptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,16 +39,22 @@ public class ProdutoResource {
         return ResponseEntity.ok(count);
     }
     @PostMapping
-    public ResponseEntity<Produto> insert(@RequestBody Produto produto) {
-        Produto createdProduto = produtoService.insert(produto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduto);
+    public ResponseEntity<Produto> insert(@RequestBody Produto produto){
+        Long forId = produto.getFornecedor().getForId();
+        Produto newProduct = produtoService.insert(forId, produto);
+        return ResponseEntity.ok(newProduct);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Produto produto) {
-        if (produtoService.update(id, produto)) {
-            return ResponseEntity.ok().build();
-        } else {
+    public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto produto) {
+        try {
+            Produto existente = produtoService.findById(id); // Só pra lançar exceção se não existir
+            produto.setProId(id); // Garante que o ID vai ser atualizado corretamente
+
+            Long forId = produto.getFornecedor().getForId(); // Pega o fornecedor do JSON igual no POST
+            Produto atualizado = produtoService.insert(forId, produto); // Usa o mesmo método de inserção
+            return ResponseEntity.ok(atualizado);
+        } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }

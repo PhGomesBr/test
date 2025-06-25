@@ -17,26 +17,32 @@ public class Fornecedor implements Serializable {
     @Column(name = "FOR_ID")
     private Long forId;
 
+    //chave estrangeira para produto
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    private  List<Produto> produtos = new ArrayList<>();
+
     @OneToMany(mappedBy = "endCliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
     @OneToMany(mappedBy = "conCliente", cascade = CascadeType.ALL)
     private List<Contato> contatos = new ArrayList<>();
 
-    @NotBlank(message = "Nome Fantasia é obrigatório")
-    @Size(max = 100, message = "Nome deve ter no máximo 100 caracteres")
-    @Column(name = "FOR_NOME_FANTASIA", nullable = false, length = 100)
+    @NotBlank(message = "Nome da Fantasia é obrigatório!")
+    @Size(max = 100, message = "Nome da Fantasia deve ter no máximo 100 caracteres!")
+    @Column(name = "FOR_NOME_FANTASIA", length = 100, nullable = false)
     private String forNomeFantasia;
 
-    @NotBlank(message = "CNPJ é obrigatório")
-    @CNPJ(message = "CNPJ inválido")
-    @Column(name = "FOR_CNPJ", unique = true, length = 18)
+    @NotBlank(message = "CNPJ é obrigatório!")
+    @CNPJ(message = "CNPJ inválido!")
+    @Size(max = 14, message = "CNPJ deve ter no máximo 14 caracteres!")
+    @Column(name = "FOR_CNPJ", unique = true, length = 14, nullable = false)
     private String forCnpj;
 
-    @NotBlank(message = "Razão social é obrigatório")
-    @Size(max = 100, message = "Razão social deve ter no máximo 100 caracteres")
-    @Column(name = "FOR_RAZAO_SOCIAL", nullable = false, length = 100)
+    @NotBlank(message = "Razão Social é obrigatório!")
+    @Size(max = 100, message = "Razão Social deve ter no máximo 100 caracteres!")
+    @Column(name = "FOR_RAZAO_SOCIAL", length = 100, nullable = false)
     private String forRazaoSocial;
+
 
     public Fornecedor() {
     }
@@ -94,5 +100,13 @@ public class Fornecedor implements Serializable {
 
     public void setContatos(List<Contato> contatos) {
         this.contatos = contatos;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

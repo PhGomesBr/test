@@ -1,7 +1,9 @@
 package org.example.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,64 +17,46 @@ public class Produto implements Serializable {
     @Column(name = "PRO_ID")
     private Long proId;
 
-    @NotBlank(message = "Nome é obrigatório")
-    @Size(max = 100, message = "Nome inválido, máximo 100 caracterias")
-    @Column(name = "PRO_NOME", nullable = false, length = 100)
+    @ManyToOne // chave estrangeira para o fornecedor
+    @JoinColumn(name = "for_id")
+    private Fornecedor fornecedor;
+
+    @NotBlank(message = "O nome do produto é obrigatório.")
     private String proNome;
 
-    @NotBlank(message = "Descrição é obrigatório")
-    @Size(max = 500, message = "Descrição inválido, máximo 100 caracterias")
-    @Column(name = "PRO_DESCRICAO", length = 500, nullable = false)
+    @NotBlank(message = "A descrição do produto é obrigatória.")
     private String proDescricao;
 
-    @NotBlank(message = "Preço de custo é obrigatório")
-    @Size(message = "Inválido")
-    @Column(name = "PRO_PRECO_CUSTO", precision = 10, scale = 2)
+    @NotNull(message = "O preço de custo é obrigatório.")
+    @Digits(integer = 10, fraction = 2, message = "O preço de custo deve ter no máximo 10 dígitos inteiros e 2 casas decimais.")
     private BigDecimal proPrecoCusto;
 
-    @NotBlank(message = "Preço de venda é obrigatório")
-    @Size(message = "Inválido")
-    @Column(name = "PRO_PRECO_VENDA", precision = 10, scale = 2, nullable = false)
+    @NotNull(message = "O preço de venda é obrigatório.")
+    @Digits(integer = 10, fraction = 2, message = "O preço de venda deve ter no máximo 10 dígitos inteiros e 2 casas decimais.")
     private BigDecimal proPrecoVenda;
 
-    @NotBlank(message = "Quantidade Estoque é obrigatório")
-    @Size(message = "Inválido")
-    @Column(name = "PRO_QUANTIDADE_ESTOQUE", nullable = false)
+    @NotNull(message = "A quantidade em estoque é obrigatória.")
     private Integer proQuantidadeEstoque;
 
-    @NotBlank(message = "Categoria é obrigatório")
-    @Size(max = 50, message = "Categoria inválida, máximo de 50 caracterias")
-    @Column(name = "PRO_CATEGORIA", nullable = false, length = 50)
+    @NotBlank(message = "A categoria do produto é obrigatória.")
     private String proCategoria;
 
-    @NotBlank(message = "Código de barras é obrigatório")
-    @Size(message = "Inválido")
-    @Column(name = "PRO_CODIGO_BARRAS", nullable = false)
+    @NotBlank(message = "O código de barras do produto é obrigatório.")
     private String proCodigoBarras;
 
-    @NotBlank(message = "Marca é obrigatório")
-    @Size(max = 100, message = "Marca inválido, deve ter no máximo 100 caracteres")
-    @Column(name = "PRO_MARCA", nullable = false, length = 100)
+    @NotBlank(message = "A marca do produto é obrigatória.")
     private String proMarca;
 
-    @NotBlank(message = "Unidade de Medida é obrigatório")
-    @Size(max = 20, message = "Inválido")
-    @Column(name = "PRO_UNIDADE_MEDIDA", nullable = false,length = 20)
+    @NotBlank(message = "A unidade de medida do produto é obrigatória.")
     private String proUnidadeMedida;
 
-    @NotBlank(message = "obrigatório")
-    @Size(message = "Inválido")
-    @Column(name = "PRO_ATIVO", nullable = false)
+    @NotBlank(message = "O status de ativo do produto é obrigatório.")
     private String proAtivo;
 
-    @NotBlank(message = "Data de cadastro é obrigatório")
-    @Size(max = 10, message = "Data de cadastro inválido, deve ter no máximo 10 caracteres")
-    @Column(name = "PRO_DATA_CADASTRO",nullable = false, length = 10)
+    @NotNull(message = "A data de cadastro é obrigatória.")
     private LocalDateTime proDataCadastro;
 
-    @NotBlank(message = "Data de atualização é obrigatório")
-    @Size(max = 10, message = "Data de atualização iválido, deve ter no máximo 10 caracteres")
-    @Column(name = "PRO_DATA_ATUALIZACAO", nullable = false, length = 10)
+    @NotNull(message = "A data de atualização é obrigatória.")
     private LocalDateTime proDataAtualizacao;
 
     public Produto() {
@@ -198,5 +182,14 @@ public class Produto implements Serializable {
 
     public void setProDataAtualizacao(LocalDateTime proDataAtualizacao) {
         this.proDataAtualizacao = proDataAtualizacao;
+    }
+
+    //fornecedor
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 }
