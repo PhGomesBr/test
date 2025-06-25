@@ -35,7 +35,7 @@ public class FornecedorService {
                 new ResourceNotFoundException(id));
     }
 
-    public Fornecedor insert(Fornecedor obj) {
+    public Fornecedor insert( Fornecedor obj) {
         try {
             obj.setForId(null);
             obj = repository.save(obj);

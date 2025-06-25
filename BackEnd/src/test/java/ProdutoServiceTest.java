@@ -1,6 +1,9 @@
+package org.example.services;
+
+import org.example.entities.Fornecedor;
 import org.example.entities.Produto;
+import org.example.repositories.FornecedorRepository;
 import org.example.repositories.ProdutoRepository;
-import org.example.services.ProdutoService;
 import org.example.services.exeptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,11 +26,19 @@ public class ProdutoServiceTest {
     @Mock
     private ProdutoRepository produtoRepository;
 
+    @Mock
+    private FornecedorRepository fornecedorRepository;
+
     private Produto produto;
+    private Fornecedor fornecedor;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        fornecedor = new Fornecedor();
+        fornecedor.setForId(1L);
+        fornecedor.setForNomeFantasia("Moura");
 
         produto = new Produto(
                 1L,
@@ -44,6 +55,7 @@ public class ProdutoServiceTest {
                 LocalDateTime.now(),
                 LocalDateTime.now()
         );
+        produto.setFornecedor(fornecedor);
     }
 
     @Test
@@ -67,12 +79,14 @@ public class ProdutoServiceTest {
 
     @Test
     void testInsertComSucesso() {
+        when(fornecedorRepository.findById(1L)).thenReturn(Optional.of(fornecedor));
         when(produtoRepository.save(any(Produto.class))).thenReturn(produto);
 
-        Produto resultado = produtoService.insert(produto);
+        Produto resultado = produtoService.insert(1L, produto);
 
         assertNotNull(resultado);
         assertEquals("Bateria 60Ah", resultado.getProNome());
+        verify(fornecedorRepository, times(1)).findById(1L);
         verify(produtoRepository, times(1)).save(produto);
     }
 
@@ -93,6 +107,7 @@ public class ProdutoServiceTest {
                 LocalDateTime.now(),
                 LocalDateTime.now()
         );
+        novoProduto.setFornecedor(fornecedor);
 
         when(produtoRepository.findById(1L)).thenReturn(Optional.of(produto));
         when(produtoRepository.save(any(Produto.class))).thenReturn(novoProduto);
