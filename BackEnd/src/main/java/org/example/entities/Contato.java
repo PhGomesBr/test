@@ -26,13 +26,13 @@ public class Contato implements Serializable {
     private Fornecedor conFornecedor;
 
     @NotBlank(message = "Celular é obrigatório")
-    @Size(max = 14, message = "Celular inválido")
-    @Column(name = "CON_CELULAR", nullable = false, length = 14)
+    @Size(max = 20, message = "Celular inválido")
+    @Column(name = "CON_CELULAR", nullable = false, length = 20)
     private String conCelular;
 
     @NotBlank(message = "Telefone Comercial é obrigatório")
-    @Size(max = 14, message = "Telefone Comercial inválido")
-    @Column(name = "CON_TELEFONE_COMERCIAL", nullable = false, length = 14)
+    @Size(max = 20, message = "Telefone Comercial inválido")
+    @Column(name = "CON_TELEFONE_COMERCIAL", nullable = false, length = 20)
     private String conTelefoneComercial;
 
     @NotBlank(message = "E-mail é obrigatório")

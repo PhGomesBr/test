@@ -32,11 +32,11 @@ public class Fornecedor implements Serializable {
     @Column(name = "FOR_NOME_FANTASIA", length = 100, nullable = false)
     private String forNomeFantasia;
 
-    @NotBlank(message = "CNPJ é obrigatório!")
-    @CNPJ(message = "CNPJ inválido!")
-    @Size(max = 14, message = "CNPJ deve ter no máximo 14 caracteres!")
-    @Column(name = "FOR_CNPJ", unique = true, length = 14, nullable = false)
+    @NotBlank(message = "CNPJ obrigatório")
+    @CNPJ(message = "CNPJ inválido, porfavor insira um válido!")
+    @Column(name = "FOR_CNPJ", length = 20, nullable = false, unique = true)
     private String forCnpj;
+
 
     @NotBlank(message = "Razão Social é obrigatório!")
     @Size(max = 100, message = "Razão Social deve ter no máximo 100 caracteres!")
@@ -47,7 +47,7 @@ public class Fornecedor implements Serializable {
     public Fornecedor() {
     }
 
-    public Fornecedor(Object o, String forNomeFantasia, String forCnpj, String forRazaoSocial) {
+    public Fornecedor(Object o, String forNomeFantasia, String forCnpj, String forRazaoSocial, Long forId) {
         this.forId = forId;
         this.forNomeFantasia = forNomeFantasia;
         this.forCnpj = forCnpj;

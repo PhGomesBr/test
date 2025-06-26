@@ -47,7 +47,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker'; // Adicionad
 import { MatNativeDateModule } from '@angular/material/core'; // Adicionado
 import { MatIconModule } from '@angular/material/icon';
 import { GraficoVendasComponent } from './component/grafico-vendas/grafico-vendas.component';
-import { VendaSemanaComponent } from './component/venda-semana/venda-semana.component';
 import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
@@ -83,9 +82,6 @@ import { NgChartsModule } from 'ng2-charts';
     ContatoUpdateComponent,
     ContatoDeleteComponent,
     GraficoVendasComponent,
-    VendaSemanaComponent,
-    
-    
   ],
   imports: [
     BrowserModule,

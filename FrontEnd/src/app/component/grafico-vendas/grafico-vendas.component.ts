@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartConfiguration, ChartType } from 'chart.js';
+import { ChartType, ChartData, ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-grafico-vendas',
@@ -7,39 +7,45 @@ import { ChartConfiguration, ChartType } from 'chart.js';
   styleUrls: ['./grafico-vendas.component.css']
 })
 export class GraficoVendasComponent implements OnInit {
+
+  public barChartType: ChartType = 'bar';
+
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
       legend: {
-        display: true,
         position: 'top',
-      },
+        labels: {
+          color: '#fff' // ajuste se fundo escuro
+        }
+      }
     },
+    scales: {
+      x: {
+        ticks: { color: '#fff' },
+        grid: { color: '#333' }
+      },
+      y: {
+        ticks: { color: '#fff' },
+        grid: { color: '#333' }
+      }
+    }
   };
 
-  public barChartData: ChartConfiguration['data'] = {
-    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5', 'Semana 6', 'Semana 7'],
+  public barChartData: ChartData<'bar'> = {
+    labels: ['Sem 22/2025', 'Sem 23/2025', 'Sem 24/2025', 'Sem 25/2025', 'Sem 26/2025'],
     datasets: [
       {
-        data: [15, 25, 35, 45, 55, 65, 75],
+        data: [1200, 1800, 1500, 2000, 1700], // dados falsos
         label: 'Vendas Semanais (R$)',
-        backgroundColor: [
-          '#7209b7', // Roxo escuro para Semana 1
-          '#7209b7', // Roxo médio para Semana 2
-          '#7209b7', // Roxo intenso para Semana 3
-          '#7209b7', // Roxo claro para Semana 4
-          '#7209b7', // Azul claro para Semana 5
-          '#7209b7', // Azul médio para Semana 6
-          '#7209b7'  // Azul escuro para Semana 7
-        ],
-      },
-    ],
+        backgroundColor: '#7209b7'
+      }
+    ]
   };
-
-  public barChartType: ChartType = 'bar';
-barChartLabels: unknown[]|undefined;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Nenhuma chamada ao serviço, dados fixos para demo
+  }
 }

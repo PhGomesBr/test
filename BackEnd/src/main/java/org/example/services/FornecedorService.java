@@ -91,7 +91,7 @@ public class FornecedorService {
     }
 
     public Fornecedor fromDTO(FornecedorDto objDto) {
-        Fornecedor fornec = new Fornecedor(null, objDto.getForNomeFantasia(), objDto.getForRazaoSocial(), objDto.getForCnpj());
+        Fornecedor fornec = new Fornecedor(null, objDto.getForNomeFantasia(), objDto.getForRazaoSocial(), objDto.getForCnpj(), objDto.getForId());
 
         Endereco ender = new Endereco(null, fornec, objDto.getEndRua(), objDto.getEndNumero(),
                 objDto.getEndCidade(), objDto.getEndCep(),

@@ -9,7 +9,7 @@ import { Fornecedor } from './fornecedor.model';
 })
 export class FornecedorService {
 
-  baseUrl = "http://localhost:8080/fornecedor"; // URL base da API
+  baseUrl = "http://localhost:8080/fornecedores"; // URL base da API
 
   constructor(private snackBar: MatSnackBar, private http: HttpClient) {}
 

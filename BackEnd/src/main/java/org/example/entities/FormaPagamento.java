@@ -2,6 +2,7 @@ package org.example.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,35 +15,32 @@ public class FormaPagamento implements Serializable {
     @Column(name = "FPG_ID")
     private Long fpgId;
 
-    @NotBlank(message = "Descrição é obrigatório")
-    @Size(message = "Descrição inválida")
+    @NotBlank(message = "Descrição é obrigatória")
+    @Size(max = 100, message = "Descrição inválida")
     @Column(name = "FPG_DESCRICAO", nullable = false)
     private String fpgDescricao;
 
-    @NotBlank(message = "obrigatório")
-    @Size(message = "inválida")
+    @NotBlank(message = "Status de ativo é obrigatório")
+    @Size(max = 10, message = "Valor inválido para ativo")
     @Column(name = "FPG_ATIVO", nullable = false)
     private String fpgAtivo;
 
-    @NotBlank(message = "Permite Parcelamento é obrigatório")
-    @Size(message = "Inválido")
+    @NotNull(message = "Permite Parcelamento é obrigatório")
     @Column(name = "FPG_PERMITE_PARCELAMENTO", nullable = false)
     private Boolean fpgPermiteParcelamento;
 
-    @NotBlank(message = "obrigatório")
-    @Size(message = "inválida")
+    @NotNull(message = "Número máximo de parcelas é obrigatório")
     @Column(name = "FPG_NUMERO_MAXIMO_PARCELAS", nullable = false)
     private Integer fpgNumeroMaximoParcelas;
 
-    @NotBlank(message = "obrigatório")
-    @Size(message = "inválida")
+    @NotNull(message = "Taxa adicional é obrigatória")
     @Column(name = "FPG_TAXA_ADICIONAL", precision = 5, scale = 2, nullable = false)
     private BigDecimal fpgTaxaAdicional;
 
     public FormaPagamento() {
     }
 
-    public FormaPagamento(Long fpgId, String fpgDescricao, String fpgAtivo, Boolean fpgPermiteParcelamento, Integer fpgNumeroMaximoParcelas,BigDecimal fpgTaxaAdicional) {
+    public FormaPagamento(Long fpgId, String fpgDescricao, String fpgAtivo, Boolean fpgPermiteParcelamento, Integer fpgNumeroMaximoParcelas, BigDecimal fpgTaxaAdicional) {
         this.fpgId = fpgId;
         this.fpgDescricao = fpgDescricao;
         this.fpgAtivo = fpgAtivo;

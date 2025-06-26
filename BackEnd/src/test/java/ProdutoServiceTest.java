@@ -1,9 +1,10 @@
-package org.example.services;
+
 
 import org.example.entities.Fornecedor;
 import org.example.entities.Produto;
 import org.example.repositories.FornecedorRepository;
 import org.example.repositories.ProdutoRepository;
+import org.example.services.ProdutoService;
 import org.example.services.exeptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ public class ProdutoServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        fornecedor = new Fornecedor();
+        fornecedor = new Fornecedor(1L, "Fantasia", "12345678000199", "Razão Social");
         fornecedor.setForId(1L);
         fornecedor.setForNomeFantasia("Moura");
 
