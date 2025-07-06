@@ -1,17 +1,43 @@
 <mat-card>
     <mat-card-title>Alterar Cliente</mat-card-title>
-    <form>
+    <!-- Formulário para entrada de dados do cliente -->
+    <form class="formulario">
+        <!-- Campo de entrada para o nome do cliente -->
         <mat-form-field>
             <input matInput placeholder="Nome" [(ngModel)]="cliente.cliNome" name="cliNome">
         </mat-form-field>
+
+        <!-- Campo de entrada para o CPF do cliente -->
         <mat-form-field>
             <input matInput placeholder="CPF" [(ngModel)]="cliente.cliCpf" name="cliCpf">
         </mat-form-field>
+
+        <!-- Campos de endereço -->
         <mat-form-field>
-            <input matInput placeholder="E-mail" [(ngModel)]="cliente.cliEmail" name="cliEmail">
+            <input matInput placeholder="Rua" [(ngModel)]="cliente.endRua" name="endRua">
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Telefone" [(ngModel)]="cliente.cliTelefone" name="cliTelefone">
+            <input matInput placeholder="Número" [(ngModel)]="cliente.endNumero" name="endNumero">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Cidade" [(ngModel)]="cliente.endCidade" name="endCidade">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="CEP" [(ngModel)]="cliente.endCep" name="endCep">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Estado" [(ngModel)]="cliente.endEstado" name="endEstado">
+        </mat-form-field>
+
+        <!-- Campos de contato (direto no cliente) -->
+        <mat-form-field>
+            <input matInput placeholder="Celular" [(ngModel)]="cliente.conCelular" name="conCelular">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Telefone Comercial" [(ngModel)]="cliente.conTelefoneComercial" name="conTelefoneComercial">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="E-mail do Contato" [(ngModel)]="cliente.conEmail" name="conEmail">
         </mat-form-field>
     </form>
 

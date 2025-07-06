@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Observable } from "rxjs"; 
 import { Cliente } from './cliente.model'; 
+//import { Contato } from '../contato/contato-read.model';
 
 // Decorador que define o serviço como disponível em toda a aplicação
 @Injectable({

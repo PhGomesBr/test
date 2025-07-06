@@ -19,10 +19,10 @@ public class Cliente implements Serializable {
     @Column(name = "CLI_ID")
     private Long cliId;
 
-    @OneToMany(mappedBy = "endCliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "endCliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "conCliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "conCliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contato> contatos = new ArrayList<>();
 
     @NotBlank(message = "Nome é obrigatório")
