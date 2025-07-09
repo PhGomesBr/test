@@ -1,57 +1,102 @@
-// Importações essenciais para o funcionamento do serviço
-import { HttpClient } from "@angular/common/http"; 
-import { Injectable } from "@angular/core"; 
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Observable } from "rxjs"; 
-import { Cliente } from './cliente.model'; 
-//import { Contato } from '../contato/contato-read.model';
+import { Observable } from "rxjs";
+import { Cliente } from './cliente.model';
+import { Contato } from "../contato/contato-read.model";
+import { Endereco } from "src/app/models/endereco.model";
 
-// Decorador que define o serviço como disponível em toda a aplicação
 @Injectable({
-    providedIn: 'root' // O serviço será injetado na raiz do projeto
+  providedIn: 'root'
 })
-export class ClienteService {
+export class ClienteContatoService {
+  readById(arg0: number) {
+    throw new Error('Method not implemented.');
+  }
 
-    // URL base para as requisições HTTP relacionadas ao cliente
-    baseUrl = "http://localhost:8080/clientes";
+  private clienteBaseUrl = "http://localhost:8080/clientes";
+  private contatoBaseUrl = "http://localhost:8080/contatos";
+  private enderecoBaseUrl = "http://localhost:8080/enderecos"; // <= ENDEREÇO BASE
 
-    // Construtor que injeta dependências necessárias
-    constructor(private snackBar: MatSnackBar, private http: HttpClient) { }
+  constructor(private snackBar: MatSnackBar, private http: HttpClient) {}
 
-    // Método para exibir mensagens de notificação
-    showMessage(msg: string): void {
-        this.snackBar.open(msg, 'X', {
-            duration: 3000, // Duração da mensagem em milissegundos
-            horizontalPosition: "right", // Posição horizontal
-            verticalPosition: "top" // Posição vertical
-        });
-    }
+  showMessage(msg: string): void {
+    this.snackBar.open(msg, 'X', {
+      duration: 3000,
+      horizontalPosition: "right",
+      verticalPosition: "top"
+    });
+  }
 
-    // Método para criar um novo cliente
-    create(cliente: Cliente): Observable<Cliente> {
-        return this.http.post<Cliente>(this.baseUrl, cliente); 
-    }
+  // ===== CLIENTES =====
+  createCliente(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(this.clienteBaseUrl, cliente);
+  }
 
-    // Método para obter a lista de clientes
-    read(): Observable<Cliente[]> {
-        return this.http.get<Cliente[]>(this.baseUrl); 
-    }
+  readClientes(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(this.clienteBaseUrl);
+  }
 
-    // Método para obter um cliente pelo ID
-    readById(id: string): Observable<Cliente> {
-        const url = `${this.baseUrl}/${id}`; // Concatena o ID na URL
-        return this.http.get<Cliente>(url);
-    }
+  readClienteById(id: string): Observable<Cliente> {
+    const url = `${this.clienteBaseUrl}/${id}`;
+    return this.http.get<Cliente>(url);
+  }
 
-    // Método para atualizar os dados de um cliente
-    update(cliente: Cliente): Observable<Cliente> {
-        const url = `${this.baseUrl}/${cliente.cliId}`; // Concatena o ID do cliente na URL
-        return this.http.put<Cliente>(url, cliente); // Envia uma requisição PUT
-    }
+  updateCliente(cliente: Cliente): Observable<Cliente> {
+    const url = `${this.clienteBaseUrl}/${cliente.cliId}`;
+    return this.http.put<Cliente>(url, cliente);
+  }
 
-    // Método para deletar um cliente pelo ID
-    delete(id: number): Observable<Cliente> {
-        const url = `${this.baseUrl}/${id}`; // Concatena o ID na URL
-        return this.http.delete<Cliente>(url); // Envia uma requisição DELETE
-    }
+  deleteCliente(id: number): Observable<Cliente> {
+    const url = `${this.clienteBaseUrl}/${id}`;
+    return this.http.delete<Cliente>(url);
+  }
+
+  // ===== CONTATOS =====
+  createContato(contato: Contato): Observable<Contato> {
+    return this.http.post<Contato>(this.contatoBaseUrl, contato);
+  }
+
+  readContatos(): Observable<Contato[]> {
+    return this.http.get<Contato[]>(this.contatoBaseUrl);
+  }
+
+  readContatoById(id: string): Observable<Contato> {
+    const url = `${this.contatoBaseUrl}/${id}`;
+    return this.http.get<Contato>(url);
+  }
+
+  updateContato(contato: Contato): Observable<Contato> {
+    const url = `${this.contatoBaseUrl}/${contato.conId}`;
+    return this.http.put<Contato>(url, contato);
+  }
+
+  deleteContato(id: number): Observable<Contato> {
+    const url = `${this.contatoBaseUrl}/${id}`;
+    return this.http.delete<Contato>(url);
+  }
+
+  // ===== ENDEREÇOS =====
+  createEndereco(endereco: Endereco): Observable<Endereco> {
+    return this.http.post<Endereco>(this.enderecoBaseUrl, endereco);
+  }
+
+  readEnderecos(): Observable<Endereco[]> {
+    return this.http.get<Endereco[]>(this.enderecoBaseUrl);
+  }
+
+  readEnderecoById(id: string): Observable<Endereco> {
+    const url = `${this.enderecoBaseUrl}/${id}`;
+    return this.http.get<Endereco>(url);
+  }
+
+  updateEndereco(endereco: Endereco): Observable<Endereco> {
+    const url = `${this.enderecoBaseUrl}/${endereco.endId}`;
+    return this.http.put<Endereco>(url, endereco);
+  }
+
+  deleteEndereco(id: number): Observable<Endereco> {
+    const url = `${this.enderecoBaseUrl}/${id}`;
+    return this.http.delete<Endereco>(url);
+  }
 }

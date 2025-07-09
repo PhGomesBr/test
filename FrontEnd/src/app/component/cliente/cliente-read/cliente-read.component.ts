@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Cliente } from '../cliente.model';
-import { ClienteService } from '../cliente.service'; 
+import { ClienteContatoService } from '../cliente.service';
 
 @Component({
   selector: 'app-cliente-read',
@@ -8,8 +8,8 @@ import { ClienteService } from '../cliente.service';
   styleUrls: ['./cliente-read.component.css']
 })
 export class ClienteReadComponent {
-  @Input()
-  cliente!: Cliente[];
+  @Input() clientes: Cliente[] = []; // <- Recebe os dados de fora (como do ClienteCrudComponent)
+
   displayedColumns = [
     'cliId',
     'cliNome',
@@ -25,12 +25,14 @@ export class ClienteReadComponent {
     'action'
   ];
 
-  constructor(private clienteService: ClienteService) {}
+
+
+  constructor(private clienteService: ClienteContatoService) {}
 
   ngOnInit(): void {
-    this.clienteService.read().subscribe(cliente => {
-      this.cliente = cliente;
-      console.log(cliente);
+    this.clienteService.readClientes().subscribe(clientes => {
+      this.clientes = clientes;
+      console.log(clientes);
     });
   }
 }

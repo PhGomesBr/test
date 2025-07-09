@@ -1,14 +1,15 @@
 <main>
-<mat-card>
-<button mat-raised-button (click)="navigateToClienteCreate()" color="primary">
-    Novo cliente
-</button>
-<input 
-type="text" 
-placeholder="Pesquisar cliente" 
-[(ngModel)]="searchTerm" 
-(input)="filterCliente()"
-class="pesquisa">
-<app-cliente-read [cliente]="filteredCliente"></app-cliente-read>
-</mat-card>
+    <mat-card>
+        <button mat-raised-button (click)="navigateToClienteCreate()" color="primary">
+            Novo cliente
+        </button>
+
+        <input type="text" 
+        placeholder="Pesquisar cliente" 
+        [(ngModel)]="searchTerm" 
+        (input)="filterCliente()"
+            class="pesquisa" />
+
+        <app-cliente-read [clientes]="filteredCliente"></app-cliente-read>
+    </mat-card>
 </main>

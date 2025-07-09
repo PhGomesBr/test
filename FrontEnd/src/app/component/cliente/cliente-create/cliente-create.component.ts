@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../cliente.model'; // Modelo de dados do cliente
 import { Router } from '@angular/router'; // Para navegação entre rotas
-import { ClienteService } from '../cliente.service'; // Serviço para manipulação de dados do cliente
+import { ClienteContatoService } from '../cliente.service'; // Serviço para manipulação de dados do cliente
 
 @Component({
   selector: 'app-cliente-create',
@@ -23,7 +23,7 @@ export class ClienteCreateComponent implements OnInit {
   };
 
   constructor(
-    private clienteService: ClienteService,
+    private clienteService: ClienteContatoService,
     private router: Router
   ) {}
 
@@ -32,7 +32,7 @@ export class ClienteCreateComponent implements OnInit {
   }
 
   createCliente(): void {
-    this.clienteService.create(this.cliente).subscribe(() => {
+    this.clienteService.createCliente(this.cliente).subscribe(() => {
       this.clienteService.showMessage('Cliente criado!');
       this.router.navigate(['/clientes']);
     });

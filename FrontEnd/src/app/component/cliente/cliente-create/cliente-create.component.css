@@ -11,7 +11,7 @@ button {
     background-color: #13286e; /* Define a cor de fundo do botão */
     color: white; /* Define a cor do texto do botão */
     border-radius: 5px; /* Define bordas arredondadas */
-    cursor: pointer; /* Muda o cursor para indicar que o botão é clicável */
+    cursor: pointer; /* Muda o cuZrsor para indicar que o botão é clicável */
     font-size: 16px; /* Define o tamanho da fonte do texto do botão */
     font-weight: bold; /* Define o peso da fonte como negrito */
     transition: all 0.3s ease; /* Suaviza as mudanças de estilo */
