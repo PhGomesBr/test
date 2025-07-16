@@ -31,52 +31,47 @@ public class FornecedorService {
 
     public Fornecedor findById(Long id) {
         Optional<Fornecedor> obj = repository.findById(id);
-        return obj.orElseThrow(() ->
-                new ResourceNotFoundException(id));
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public Fornecedor insert( Fornecedor obj) {
+    public Fornecedor insert(Fornecedor obj) {
         try {
             obj.setForId(null);
             obj = repository.save(obj);
             enderecoRepository.saveAll(obj.getEnderecos());
             return obj;
         } catch (DataIntegrityViolationException e) {
-            throw new ValueBigForAtributeException(e
-                    .getMessage());
+            throw new ValueBigForAtributeException(e.getMessage());
         }
     }
 
-    public Fornecedor update(Long Id, FornecedorDto objDto) {
+    public Fornecedor update(Long id, FornecedorDto objDto) {
         try {
-            Fornecedor entity = findById(Id);
+            Fornecedor entity = findById(id);
 
-            //Atualiza os dados os fornecedor
-            entity.setForRazaoSocial(objDto.getForRazaoSocial());
+            entity.setForNomeFantasia(objDto.getForNomeFantasia());
             entity.setForRazaoSocial(objDto.getForRazaoSocial());
             entity.setForCnpj(objDto.getForCnpj());
 
-            //Atualiza os dados os fornecedor
-            Endereco endereco = entity.getEnderecos().get(0);
+            // Atualiza o endereço (assumindo apenas um por fornecedor)
+            if (!entity.getEnderecos().isEmpty()) {
+                Endereco endereco = entity.getEnderecos().get(0);
+                endereco.setEndRua(objDto.getEndRua());
+                endereco.setEndNumero(objDto.getEndNumero());
+                endereco.setEndCidade(objDto.getEndCidade());
+                endereco.setEndCep(objDto.getEndCep());
+                endereco.setEndEstado(objDto.getEndEstado());
+            }
 
-            //Assuindo que ha apenas um endereço por fornecedor
-            endereco.setEndRua(objDto.getEndRua());
-            endereco.setEndNumero(objDto.getEndNumero());
-            endereco.setEndCidade(objDto.getEndCidade());
-            endereco.setEndCep(objDto.getEndCep());
-            endereco.setEndEstado(objDto.getEndEstado());
+            // Atualiza o contato (assumindo apenas um por fornecedor)
+            if (!entity.getContatos().isEmpty()) {
+                Contato contato = entity.getContatos().get(0);
+                contato.setConCelular(objDto.getConCelular());
+                contato.setConTelefoneComercial(objDto.getConTelefoneComercial());
+                contato.setConEmail(objDto.getConEmail());
+            }
 
-            //Atualiza o contato
-            Contato contato = entity.getContatos().get(0);
-
-            //Assumindo que ha apenas um contato por fornecedor
-            contato.setConCelular(objDto.getConCelular());
-            contato.setConTelefoneComercial(objDto.getConTelefoneComercial());
-            contato.setConEmail(objDto.getConEmail());
-
-            //Salva as alterações
-            repository.save(entity);
-            return entity;
+            return repository.save(entity);
         } catch (DataIntegrityViolationException e) {
             throw new ValueBigForAtributeException(e.getMessage());
         }
@@ -91,13 +86,19 @@ public class FornecedorService {
     }
 
     public Fornecedor fromDTO(FornecedorDto objDto) {
-        Fornecedor fornec = new Fornecedor(null, objDto.getForNomeFantasia(), objDto.getForRazaoSocial(), objDto.getForCnpj(), objDto.getForId());
+        Fornecedor fornec = new Fornecedor(
+                objDto.getForNomeFantasia(),
+                objDto.getForCnpj(),
+                objDto.getForRazaoSocial()
+        );
 
-        Endereco ender = new Endereco(null, fornec, objDto.getEndRua(), objDto.getEndNumero(),
+        Endereco ender = new Endereco(null, fornec,
+                objDto.getEndRua(), objDto.getEndNumero(),
                 objDto.getEndCidade(), objDto.getEndCep(),
                 objDto.getEndEstado());
 
-        Contato contato = new Contato(null, fornec, objDto.getConCelular(), objDto.getConTelefoneComercial(),
+        Contato contato = new Contato(null, fornec,
+                objDto.getConCelular(), objDto.getConTelefoneComercial(),
                 objDto.getConEmail());
 
         fornec.getEnderecos().add(ender);
@@ -109,25 +110,26 @@ public class FornecedorService {
     public FornecedorDto toNewDto(Fornecedor obj) {
         FornecedorDto dto = new FornecedorDto();
 
-// Mapeie os atributos comuns entre Fornecedor e FornecedorNewDTO
         dto.setForId(obj.getForId());
         dto.setForNomeFantasia(obj.getForNomeFantasia());
         dto.setForRazaoSocial(obj.getForRazaoSocial());
         dto.setForCnpj(obj.getForCnpj());
 
-// Atributos específicos de Endereco
-        Endereco endereco = obj.getEnderecos().get(0);
-        dto.setEndRua(endereco.getEndRua());
-        dto.setEndNumero(endereco.getEndNumero());
-        dto.setEndCidade(endereco.getEndCidade());
-        dto.setEndCep(endereco.getEndCep());
-        dto.setEndEstado(endereco.getEndEstado());
+        if (!obj.getEnderecos().isEmpty()) {
+            Endereco endereco = obj.getEnderecos().get(0);
+            dto.setEndRua(endereco.getEndRua());
+            dto.setEndNumero(endereco.getEndNumero());
+            dto.setEndCidade(endereco.getEndCidade());
+            dto.setEndCep(endereco.getEndCep());
+            dto.setEndEstado(endereco.getEndEstado());
+        }
 
-// Atributos específicos de Contato
-        Contato contato = obj.getContatos().get(0);
-        dto.setConCelular(contato.getConCelular());
-        dto.setConTelefoneComercial(contato.getConTelefoneComercial());
-        dto.setConEmail(contato.getConEmail());
+        if (!obj.getContatos().isEmpty()) {
+            Contato contato = obj.getContatos().get(0);
+            dto.setConCelular(contato.getConCelular());
+            dto.setConTelefoneComercial(contato.getConTelefoneComercial());
+            dto.setConEmail(contato.getConEmail());
+        }
 
         return dto;
     }

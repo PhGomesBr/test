@@ -12,21 +12,24 @@ import java.util.List;
 @Entity
 public class Fornecedor implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FOR_ID")
     private Long forId;
 
-    //chave estrangeira para produto
+    // Relacionamentos
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
-    private  List<Produto> produtos = new ArrayList<>();
+    private List<Produto> produtos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "endCliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "endFornecedor", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "conCliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "conFornecedor", cascade = CascadeType.ALL)
     private List<Contato> contatos = new ArrayList<>();
 
+    // Campos obrigatórios
     @NotBlank(message = "Nome da Fantasia é obrigatório!")
     @Size(max = 100, message = "Nome da Fantasia deve ter no máximo 100 caracteres!")
     @Column(name = "FOR_NOME_FANTASIA", length = 100, nullable = false)
@@ -37,23 +40,22 @@ public class Fornecedor implements Serializable {
     @Column(name = "FOR_CNPJ", length = 20, nullable = false, unique = true)
     private String forCnpj;
 
-
     @NotBlank(message = "Razão Social é obrigatório!")
     @Size(max = 100, message = "Razão Social deve ter no máximo 100 caracteres!")
     @Column(name = "FOR_RAZAO_SOCIAL", length = 100, nullable = false)
     private String forRazaoSocial;
 
-
+    // Construtores
     public Fornecedor() {
     }
 
-    public Fornecedor(Object o, String forNomeFantasia, String forCnpj, String forRazaoSocial, Long forId) {
-        this.forId = forId;
+    public Fornecedor(String forNomeFantasia, String forCnpj, String forRazaoSocial) {
         this.forNomeFantasia = forNomeFantasia;
-        this.forCnpj = forCnpj;
+        this.setForCnpj(forCnpj); // Aplica sanitização
         this.forRazaoSocial = forRazaoSocial;
     }
 
+    // Getters e Setters
     public Long getForId() {
         return forId;
     }
@@ -75,7 +77,11 @@ public class Fornecedor implements Serializable {
     }
 
     public void setForCnpj(String forCnpj) {
-        this.forCnpj = forCnpj;
+        if (forCnpj != null) {
+            this.forCnpj = forCnpj.replaceAll("\\D", ""); // Remove tudo que não for número
+        } else {
+            this.forCnpj = null;
+        }
     }
 
     public String getForRazaoSocial() {

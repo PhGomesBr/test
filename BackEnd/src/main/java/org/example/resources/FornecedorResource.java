@@ -50,7 +50,7 @@ public class FornecedorResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteFornecedor(@PathVariable Long id) {
         service.deleteFornecedor(id);
         return ResponseEntity.noContent().build();
     }

@@ -17,13 +17,13 @@ export class FornecedorUpdateComponent {
 
   ngOnInit(): void {
     const forId = this.route.snapshot.paramMap.get('forId')
-    this.fornecedorService.readById(forId!).subscribe((fornecedor: Fornecedor) =>{
+    this.fornecedorService.readFornecedorById(forId!).subscribe((fornecedor: Fornecedor) =>{
       this.fornecedor = fornecedor
     })
   }
 
   updateFornecedor(): void {
-    this.fornecedorService.update(this.fornecedor).subscribe(() => {
+    this.fornecedorService.updateFornecedor(this.fornecedor).subscribe(() => {
       this.fornecedorService.showMessage('Fornecedor atualizado com sucesso!')
       this.router.navigate(['/fornecedor'])
     })

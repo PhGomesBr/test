@@ -18,13 +18,13 @@ export class FornecedorDeleteComponent {
 
   ngOnInit(): void {
     const forId = this.route.snapshot.paramMap.get('forId');
-    this.fornecedorService.readById(forId!).subscribe(fornecedor =>{
+    this.fornecedorService.readFornecedorById(forId!).subscribe(fornecedor =>{
       this.fornecedor = fornecedor
     })
   }
 
   deleteFornecedor(): void {
-    this.fornecedorService.delete(this.fornecedor.forId!).subscribe(() =>{
+    this.fornecedorService.deleteFornecedor(this.fornecedor.forId!).subscribe(() =>{
     this.fornecedorService.showMessage('Fornecedor excluido com sucesso!')  
     this.router.navigate(['/fornecedor'])
     })
