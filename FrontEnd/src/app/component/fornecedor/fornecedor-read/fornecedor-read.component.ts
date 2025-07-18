@@ -10,8 +10,22 @@ import { FornecedorService } from '../fornecedor.service';
 export class FornecedorReadComponent implements OnInit {
   @Input() // Termo de pesquisa para filtrar fornecedores
   fornecedor!: Fornecedor[]; // Lista de fornecedores
-  displayedColumns = ['forId', 'forNomeFantasia', 'forCnpj', 'forRazaoSocial', 'action']; // Colunas exibidas na tabela
 
+  displayedColumns: string[] = [
+    'forId',
+    'forNomeFantasia',
+    'forCnpj',
+    'forRazaoSocial',
+    'endRua',
+    'endNumero',
+    'endCidade',
+    'endCep',
+    'endEstado',
+    'conCelular',
+    'conTelefoneComercial',
+    'conEmail',
+    'action'
+  ];
   // Injeta o serviço FornecedorService no construtor
   constructor(private fornecedorService: FornecedorService) {}
 
