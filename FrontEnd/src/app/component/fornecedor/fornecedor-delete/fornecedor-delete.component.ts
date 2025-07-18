@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Fornecedor } from '../fornecedor.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FornecedorService } from '../fornecedor.service';
@@ -8,7 +8,7 @@ import { FornecedorService } from '../fornecedor.service';
   templateUrl: './fornecedor-delete.component.html',
   styleUrls: ['./fornecedor-delete.component.css']
 })
-export class FornecedorDeleteComponent {
+export class FornecedorDeleteComponent implements OnInit{
   fornecedor!: Fornecedor;
 
   constructor(
@@ -18,16 +18,23 @@ export class FornecedorDeleteComponent {
 
   ngOnInit(): void {
     const forId = this.route.snapshot.paramMap.get('forId');
-    this.fornecedorService.readFornecedorById(forId!).subscribe(fornecedor =>{
-      this.fornecedor = fornecedor
-    })
+    if (forId){
+      this.fornecedorService.readFornecedorById(forId).subscribe((fornecedor: Fornecedor) => {
+        this.fornecedor = fornecedor;
+      });
+    }else{
+      this.router.navigate(['/fornecedor']);
+    }
   }
+  
 
   deleteFornecedor(): void {
-    this.fornecedorService.deleteFornecedor(this.fornecedor.forId!).subscribe(() =>{
-    this.fornecedorService.showMessage('Fornecedor excluido com sucesso!')  
-    this.router.navigate(['/fornecedor'])
-    })
+    if(this.fornecedor.forId){
+      this.fornecedorService.deleteFornecedor(this.fornecedor.forId).subscribe(() =>{
+        this.fornecedorService.showMessage('Fornecedor excluído com sucess!');
+        this.router.navigate(['/fornecedor']);
+      });
+    }
   }
 
   cancel(): void{
