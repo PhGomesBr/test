@@ -1,5 +1,7 @@
 package org.example.resources;
+import org.example.dto.ClienteDto;
 import org.example.dto.FornecedorDto;
+import org.example.entities.Cliente;
 import org.example.entities.Fornecedor;
 import org.example.services.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +31,10 @@ public class FornecedorResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Fornecedor> findById(@PathVariable Long id) {
+    public ResponseEntity<FornecedorDto> findById(@PathVariable Long id) {
         Fornecedor obj = service.findById(id);
         FornecedorDto dto = service.toNewDto(obj);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(dto); //  Retorna o DTO corretamente
     }
 
     @PostMapping

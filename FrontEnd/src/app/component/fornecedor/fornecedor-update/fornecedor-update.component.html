@@ -1,21 +1,86 @@
 <mat-card>
     <mat-card-title>Alterar Fornecedor</mat-card-title>
-    <form>
-        <mat-form-field>
-            <input matInput placeholder="Nome fantasia" [(ngModel)]="fornecedor.forNomeFantasia" name="forNomeFantasia">
+    <!-- Formulário para entrada de dados do fornecedor -->
+    <form *ngIf="fornecedor" class="formulario">
+        <h3 class="subtitulo">Dados Pessoais</h3>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Nome Fantasia</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.forNomeFantasia" name="forNomeFantasia">
         </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="CNPJ" [(ngModel)]="fornecedor.forCnpj" name="forCnpj">
+
+        <mat-form-field appearance="outline">
+            <mat-label>CNPJ</mat-label>
+            <mat-icon matPrefix>badge</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.forCnpj" name="forCnpj">
         </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Razão social" [(ngModel)]="fornecedor.forRazaoSocial" name="forRazaoSocial">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Razão Social</mat-label>
+            <mat-icon matPrefix>business</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.forRazaoSocial" name="forRazaoSocial">
+        </mat-form-field>
+
+        <!-- Seção: Endereço -->
+        <h3 class="subtitulo">Endereço</h3>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Rua</mat-label>
+            <mat-icon matPrefix>home</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.endRua" name="endRua">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Número</mat-label>
+            <mat-icon matPrefix>pin</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.endNumero" name="endNumero">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Cidade</mat-label>
+            <mat-icon matPrefix>location_city</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.endCidade" name="endCidade">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>CEP</mat-label>
+            <mat-icon matPrefix>markunread_mailbox</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.endCep" name="endCep">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <mat-icon matPrefix>map</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.endEstado" name="endEstado">
+        </mat-form-field>
+
+        <!-- Seção: Contato -->
+        <h3 class="subtitulo">Contato</h3>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Celular</mat-label>
+            <mat-icon matPrefix>smartphone</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.conCelular" name="conCelular">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Telefone Comercial</mat-label>
+            <mat-icon matPrefix>phone</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.conTelefoneComercial" name="conTelefoneComercial">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <mat-icon matPrefix>email</mat-icon>
+            <input matInput [(ngModel)]="fornecedor.conEmail" name="conEmail">
         </mat-form-field>
     </form>
 
     <button mat-raised-button (click)="updateFornecedor()" color="primary">
         Atualizar
     </button>
-   
+
     <button mat-raised-button (click)="cancel()">
         Cancelar
     </button>
