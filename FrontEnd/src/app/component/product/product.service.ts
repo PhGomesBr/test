@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from './product.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root' // Define o serviço como singleton no root module
@@ -24,8 +24,10 @@ export class ProductService {
 
   // Cria um novo produto
   create(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.baseUrl, product);
-  }
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post<Product>(this.baseUrl, product, { headers });
+}
+
 
   // Obtém a lista de produtos
   read(): Observable<Product[]> {

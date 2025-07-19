@@ -153,6 +153,23 @@
                     <mat-option [value]="false">Não</mat-option>
                 </mat-select>
             </mat-form-field>
+
+            <!-- Campo de seleção do Fornecedor -->
+<mat-form-field class="full-width custom-select">
+
+    <mat-label>Fornecedor</mat-label>
+  <!-- Só será válido se um fornecedor for selecionado (required) -->
+  <mat-select [(ngModel)]="product.fornecedor" name="fornecedor" required>
+
+    <!-- Laço que percorre os fornecedores retornados do backend -->
+    <mat-option *ngFor="let fornecedor of fornecedores" [value]="{ forId: fornecedor.forId }">
+      <!-- O texto visível na lista será o nome do fornecedor -->
+      {{ fornecedor.forNomeFantasia }}
+    </mat-option>
+
+  </mat-select>
+</mat-form-field>
+
             <!--Datas-->
             <mat-form-field>
                 <mat-label>Data de Cadastro</mat-label>

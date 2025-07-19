@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 import { Router } from '@angular/router';
+import { FornecedorService } from '../../fornecedor/fornecedor.service'; // Corrigir o caminho conforme seu projeto
+import { Fornecedor } from '../../fornecedor/fornecedor.model'; // Opcional: se você tiver um modelo de Fornecedor
 
 @Component({
   selector: 'app-product-create',
@@ -9,35 +11,46 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent implements OnInit {
-    product: Product = {
-    proNome: '', // Nome do produto
-    proDescricao: '', // Descrição do produto
-    proPrecoCusto: null, // Preço de custo inicial
-    proPrecoVenda: null, // Preço de venda inicial
-    proQuantidadeEstoque: null, // Quantidade em estoque inicial
-    proCategoria: '', // Categoria do produto
-    proCodigoBarras: '', // Código de barras do produto
-    proMarca: '', // Marca do produto
-    proUnidadeMedida: '', // Unidade de medida do produto
-    proAtivo: true, // Status ativo inicial
-    proDataCadastro: '', // Data de cadastro inicial (vazia para datetime-local)
-    proDataAtualizacao: '' // Data de atualização inicial (vazia para datetime-local)
+
+  fornecedores: Fornecedor[] = [];
+
+  product: Product = {
+    proNome: '',
+    proDescricao: '',
+    proPrecoCusto: null,
+    proPrecoVenda: null,
+    proQuantidadeEstoque: null,
+    proCategoria: '',
+    proCodigoBarras: '',
+    proMarca: '',
+    proUnidadeMedida: '',
+    proAtivo: true,
+    proDataCadastro: '',
+    proDataAtualizacao: '',
+    fornecedor: {
+      forId: 0
+    }
   };
 
-  // Injeção de dependências: ProductService e Router
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private fornecedorService: FornecedorService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
-
-  // Método para criar um produto
-  createProduct(): void {
-    this.productService.create(this.product).subscribe(() => {
-      this.productService.showMessage('Produto criado!'); // Exibe mensagem de sucesso
-      this.router.navigate(['/products']); // Redireciona para a lista de produtos
+  ngOnInit(): void {
+    this.fornecedorService.readFornecedores().subscribe((data: Fornecedor[]) => {
+      this.fornecedores = data;
     });
   }
 
-  // Método para cancelar a criação e voltar à lista de produtos
+  createProduct(): void {
+    this.productService.create(this.product).subscribe(() => {
+      this.productService.showMessage('Produto criado!');
+      this.router.navigate(['/products']);
+    });
+  }
+
   cancel(): void {
     this.router.navigate(['/products']);
   }

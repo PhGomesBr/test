@@ -1,5 +1,6 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
@@ -19,43 +20,46 @@ public class Fornecedor implements Serializable {
     @Column(name = "FOR_ID")
     private Long forId;
 
-    // Relacionamentos
+    // Relacionamento com Produto
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    @JsonManagedReference  // controla o lado "pai" da relação
     private List<Produto> produtos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "endFornecedor", cascade = CascadeType.ALL)
+    // Relacionamento com Endereço
+    @OneToMany(mappedBy = "endFornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "conFornecedor", cascade = CascadeType.ALL)
+    // Relacionamento com Contato
+    @OneToMany(mappedBy = "conFornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contato> contatos = new ArrayList<>();
 
-    // Campos obrigatórios
+    // Campos obrigatórios com validação
     @NotBlank(message = "Nome da Fantasia é obrigatório!")
     @Size(max = 100, message = "Nome da Fantasia deve ter no máximo 100 caracteres!")
     @Column(name = "FOR_NOME_FANTASIA", length = 100, nullable = false)
     private String forNomeFantasia;
 
     @NotBlank(message = "CNPJ obrigatório")
-    @CNPJ(message = "CNPJ inválido, porfavor insira um válido!")
+    @CNPJ(message = "CNPJ inválido, por favor insira um válido!")
     @Column(name = "FOR_CNPJ", length = 20, nullable = false, unique = true)
     private String forCnpj;
 
-    @NotBlank(message = "Razão Social é obrigatório!")
+    @NotBlank(message = "Razão Social é obrigatória!")
     @Size(max = 100, message = "Razão Social deve ter no máximo 100 caracteres!")
     @Column(name = "FOR_RAZAO_SOCIAL", length = 100, nullable = false)
     private String forRazaoSocial;
 
     // Construtores
-    public Fornecedor() {
-    }
+    public Fornecedor() {}
 
     public Fornecedor(String forNomeFantasia, String forCnpj, String forRazaoSocial) {
         this.forNomeFantasia = forNomeFantasia;
-        this.setForCnpj(forCnpj); // Aplica sanitização
+        this.setForCnpj(forCnpj); // Sanitiza CNPJ
         this.forRazaoSocial = forRazaoSocial;
     }
 
     // Getters e Setters
+
     public Long getForId() {
         return forId;
     }
@@ -78,7 +82,7 @@ public class Fornecedor implements Serializable {
 
     public void setForCnpj(String forCnpj) {
         if (forCnpj != null) {
-            this.forCnpj = forCnpj.replaceAll("\\D", ""); // Remove tudo que não for número
+            this.forCnpj = forCnpj.replaceAll("\\D", ""); // Remove caracteres não numéricos
         } else {
             this.forCnpj = null;
         }

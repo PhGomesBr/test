@@ -12,4 +12,9 @@ export interface Product {
     proAtivo: boolean; // Status ativo do produto
     proDataCadastro?: string; // Data de cadastro (LocalDateTime mapeado como string)
     proDataAtualizacao?: string; // Data de atualização (LocalDateTime mapeado como string)
+
+    // Objeto fornecedor que pelo menos deve ter o ID (forId)
+    fornecedor: {
+    forId: number;
+  } | null;  // Pode ser null se quiser permitir produto sem fornecedor
 }

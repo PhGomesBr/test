@@ -1,10 +1,11 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class Produto implements Serializable {
 
     @ManyToOne // chave estrangeira para o fornecedor
     @JoinColumn(name = "for_id")
+    @JsonBackReference  // controla o lado "filho" da relação
     private Fornecedor fornecedor;
 
     @NotBlank(message = "O nome do produto é obrigatório.")
