@@ -43,7 +43,7 @@
             <input matInput [(ngModel)]="cliente.endCep" name="endCep">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="campo full-width">
             <mat-label>Estado</mat-label>
             <mat-icon matPrefix>map</mat-icon>
             <input matInput [(ngModel)]="cliente.endEstado" name="endEstado">
@@ -64,18 +64,18 @@
             <input matInput [(ngModel)]="cliente.conTelefoneComercial" name="conTelefoneComercial">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="campo full-width">
             <mat-label>E-mail</mat-label>
             <mat-icon matPrefix>email</mat-icon>
             <input matInput [(ngModel)]="cliente.conEmail" name="conEmail">
         </mat-form-field>
     </form>
 
-    <button mat-raised-button (click)="updateCliente()" color="primary">
+    <button class="btnSave" (click)="updateCliente()" color="primary">
         Atualizar
     </button>
 
-    <button mat-raised-button (click)="cancel()">
+    <button class="btnCancel" (click)="cancel()">
         Cancelar
     </button>
 

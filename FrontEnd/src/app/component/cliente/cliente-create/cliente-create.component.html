@@ -48,7 +48,7 @@
       <input matInput [(ngModel)]="cliente.endCep" name="endCep">
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="campo full-width">
       <mat-label>Estado</mat-label>
       <mat-icon matPrefix>map</mat-icon>
       <input matInput [(ngModel)]="cliente.endEstado" name="endEstado">
@@ -69,7 +69,7 @@
       <input matInput [(ngModel)]="cliente.conTelefoneComercial" name="conTelefoneComercial">
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="campo full-width">
       <mat-label>E-mail</mat-label>
       <mat-icon matPrefix>email</mat-icon>
       <input matInput [(ngModel)]="cliente.conEmail" name="conEmail">
@@ -77,8 +77,8 @@
 
     <!-- Botões -->
     <div class="botoes">
-      <button mat-raised-button color="primary" (click)="createCliente()">Salvar</button>
-      <button mat-stroked-button color="warn" (click)="cancel()">Cancelar</button>
+      <button class="btnSave" color="primary" (click)="createCliente()">Salvar</button>
+      <button class="btnCancel" color="warn" (click)="cancel()">Cancelar</button>
     </div>
 
   </form>

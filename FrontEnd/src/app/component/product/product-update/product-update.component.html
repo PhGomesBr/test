@@ -187,11 +187,11 @@
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
-            <button mat-raised-button (click)="updateProduct()" color="primary">
+            <button class="btnSave" (click)="updateProduct()" color="primary">
                 Atualizar
             </button>
 
-            <button mat-raised-button (click)="cancel()">
+            <button class="btnCancel" mat-raised-button (click)="cancel()">
                 Cancelar
             </button>
         </form>

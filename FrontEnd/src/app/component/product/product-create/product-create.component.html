@@ -7,9 +7,9 @@
                 <input matInput placeholder="Nome" [(ngModel)]="product.proNome" name="proNome" required>
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Descrição</mat-label>
-                <textarea matInput placeholder="Descrição" [(ngModel)]="product.proDescricao" name="proDescricao"
-                    required></textarea>
+                <mat-label>Quantidade em Estoque</mat-label>
+                <input matInput type="number" placeholder="Quantidade em estoque"
+                    [(ngModel)]="product.proQuantidadeEstoque" name="proQuantidadeEstoque" min="0" required>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Preço de Custo</mat-label>
@@ -21,13 +21,13 @@
                 <input matInput type="number" placeholder="Preço de venda (R$)" [(ngModel)]="product.proPrecoVenda"
                     name="proPrecoVenda" step="0.01" min="0" required>
             </mat-form-field>
-            <mat-form-field>
-                <mat-label>Quantidade em Estoque</mat-label>
-                <input matInput type="number" placeholder="Quantidade em estoque"
-                    [(ngModel)]="product.proQuantidadeEstoque" name="proQuantidadeEstoque" min="0" required>
+            <mat-form-field class="campo full-width">
+                <mat-label>Descrição</mat-label>
+                <textarea matInput placeholder="Descrição" [(ngModel)]="product.proDescricao" name="proDescricao"
+                    required></textarea>
             </mat-form-field>
             <!--categoria-->
-            <mat-form-field class="full-width custom-select">
+            <mat-form-field>
                 <mat-label>Categoria</mat-label>
                 <mat-select [(ngModel)]="product.proCategoria" name="proCategoria" required>
 
@@ -188,11 +188,11 @@
             </mat-form-field>
 
             <!--Botões-->
-            <button mat-raised-button (click)="createProduct()" color="primary">
+            <button class="btnSave" (click)="createProduct()" color="primary">
                 Salvar
             </button>
 
-            <button mat-raised-button (click)="cancel()">
+            <button class="btnCancel" (click)="cancel()">
                 Cancelar
             </button>
         </form>
