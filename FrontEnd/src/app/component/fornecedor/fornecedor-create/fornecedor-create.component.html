@@ -16,15 +16,24 @@
       <mat-icon matPrefix>badge</mat-icon>
       <input matInput [(ngModel)]="fornecedor.forCnpj" name="forCnpj" required maxlength="18" placeholder="00.000.000/0000-00">
     </mat-form-field>
-
+    
     <mat-form-field appearance="outline" class="campo full-width">
       <mat-label>Razão Social</mat-label>
       <mat-icon matPrefix>business</mat-icon>
       <input matInput [(ngModel)]="fornecedor.forRazaoSocial" name="forRazaoSocial" required>
     </mat-form-field>
-
+    
     <!-- Seção: Endereço -->
     <h3 class="subtitulo">Endereço</h3>
+    <!-- CEP com evento (keyup) para buscar endereço automaticamente -->
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>markunread_mailbox</mat-icon>
+      <input matInput placeholder="CEP" 
+      [(ngModel)]="fornecedor.endCep"
+       name="endCep" 
+       required
+        (keyup)="buscarEnderecoPorCep()">
+    </mat-form-field>
 
     <mat-form-field appearance="outline" class="campo">
       <mat-label>Rua</mat-label>
@@ -44,11 +53,6 @@
       <input matInput [(ngModel)]="fornecedor.endCidade" name="endCidade" required>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>CEP</mat-label>
-      <mat-icon matPrefix>markunread_mailbox</mat-icon>
-      <input matInput [(ngModel)]="fornecedor.endCep" name="endCep" required maxlength="9" placeholder="00000-000">
-    </mat-form-field>
 
     <mat-form-field appearance="outline" class="campo full-width">
       <mat-label>Estado</mat-label>

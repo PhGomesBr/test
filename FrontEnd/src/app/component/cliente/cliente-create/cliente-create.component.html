@@ -23,6 +23,15 @@
 
     <!-- Seção: Endereço -->
     <h3 class="subtitulo">Endereço</h3>
+    <!-- CEP com evento (keyup) para buscar endereço automaticamente -->
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>markunread_mailbox</mat-icon>
+      <input matInput placeholder="CEP" 
+      [(ngModel)]="cliente.endCep"
+       name="endCep" 
+       required
+        (keyup)="buscarEnderecoPorCep()">
+    </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Rua</mat-label>
@@ -42,11 +51,6 @@
       <input matInput [(ngModel)]="cliente.endCidade" name="endCidade">
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>CEP</mat-label>
-      <mat-icon matPrefix>markunread_mailbox</mat-icon>
-      <input matInput [(ngModel)]="cliente.endCep" name="endCep">
-    </mat-form-field>
 
     <mat-form-field appearance="outline" class="campo full-width">
       <mat-label>Estado</mat-label>
