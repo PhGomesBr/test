@@ -48,6 +48,10 @@ import { MatNativeDateModule } from '@angular/material/core'; // Adicionado
 import { MatIconModule } from '@angular/material/icon';
 import { GraficoVendasComponent } from './component/grafico-vendas/grafico-vendas.component';
 import { NgChartsModule } from 'ng2-charts';
+import { VendaCreateComponent } from './component/venda/venda-create/venda-create.component';
+import { VendaReadComponent } from './component/venda/venda-read/venda-read.component';
+import { VendaCrudComponent } from './views/venda-crud/venda-crud.component';
+import { ReactiveFormsModule } from '@angular/forms'; // ✅ IMPORTAR AQUI
 
 @NgModule({
   declarations: [
@@ -82,6 +86,10 @@ import { NgChartsModule } from 'ng2-charts';
     ContatoUpdateComponent,
     ContatoDeleteComponent,
     GraficoVendasComponent,
+    VendaCreateComponent,
+    VendaReadComponent,
+    VendaCrudComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -103,6 +111,7 @@ import { NgChartsModule } from 'ng2-charts';
     FormsModule, // Adicione aqui
     MatIconModule,
     NgChartsModule, // Importando o módulo de gráficos
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
