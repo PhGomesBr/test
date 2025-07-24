@@ -1,9 +1,7 @@
 package org.example.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -15,37 +13,42 @@ public class FormaPagamento implements Serializable {
     @Column(name = "FPG_ID")
     private Long fpgId;
 
-    @NotBlank(message = "Descrição é obrigatória")
-    @Size(max = 100, message = "Descrição inválida")
-    @Column(name = "FPG_DESCRICAO", nullable = false)
+    @NotBlank(message = "Tipo de pagamento é obrigatório")
+    @Pattern(regexp = "^(Credito|Debito|Pix|Boleto)$", message = "Tipo deve ser: Credito, Debito, Pix ou Boleto")
+    @Column(name = "FPG_TIPO", nullable = false, length = 10)
+    private String fpgTipo;
+
+    @NotBlank(message = "Descrição é obrigatória!")
+    @Size(max = 100, message = "Descrição deve ter no máximo 100 caracteres")
+    @Column(name = "FPG_DESCRICAO", nullable = false, length = 100)
     private String fpgDescricao;
 
-    @NotBlank(message = "Status de ativo é obrigatório")
-    @Size(max = 10, message = "Valor inválido para ativo")
-    @Column(name = "FPG_ATIVO", nullable = false)
-    private String fpgAtivo;
-
-    @NotNull(message = "Permite Parcelamento é obrigatório")
+    @NotNull(message = "Campo 'Permite Parcelamento' é obrigatório")
     @Column(name = "FPG_PERMITE_PARCELAMENTO", nullable = false)
     private Boolean fpgPermiteParcelamento;
 
     @NotNull(message = "Número máximo de parcelas é obrigatório")
-    @Column(name = "FPG_NUMERO_MAXIMO_PARCELAS", nullable = false)
-    private Integer fpgNumeroMaximoParcelas;
+    @Min(value = 1, message = "Número de parcelas deve ser no mínimo 1")
+    @Max(value = 12, message = "Número de parcelas não pode exceder 12")
+    @Column(name = "FPG_NUM_MAX_PARCELAS", nullable = false)
+    private Integer fpgNumMaxParcelas;
 
     @NotNull(message = "Taxa adicional é obrigatória")
-    @Column(name = "FPG_TAXA_ADICIONAL", precision = 5, scale = 2, nullable = false)
+    @DecimalMin(value = "0.00", inclusive = true, message = "Taxa adicional não pode ser negativa")
+    @Column(name = "FPG_TAXA_ADICIONAL", nullable = false, precision = 10, scale = 2)
     private BigDecimal fpgTaxaAdicional;
 
     public FormaPagamento() {
     }
 
-    public FormaPagamento(Long fpgId, String fpgDescricao, String fpgAtivo, Boolean fpgPermiteParcelamento, Integer fpgNumeroMaximoParcelas, BigDecimal fpgTaxaAdicional) {
+    public FormaPagamento(Long fpgId, String fpgDescricao, String fpgTipo,
+                          Boolean fpgPermiteParcelamento, Integer fpgNumMaxParcelas,
+                          BigDecimal fpgTaxaAdicional) {
         this.fpgId = fpgId;
         this.fpgDescricao = fpgDescricao;
-        this.fpgAtivo = fpgAtivo;
+        this.fpgTipo = fpgTipo;
         this.fpgPermiteParcelamento = fpgPermiteParcelamento;
-        this.fpgNumeroMaximoParcelas = fpgNumeroMaximoParcelas;
+        this.fpgNumMaxParcelas = fpgNumMaxParcelas;
         this.fpgTaxaAdicional = fpgTaxaAdicional;
     }
 
@@ -65,12 +68,12 @@ public class FormaPagamento implements Serializable {
         this.fpgDescricao = fpgDescricao;
     }
 
-    public String getFpgAtivo() {
-        return fpgAtivo;
+    public String getFpgTipo() {
+        return fpgTipo;
     }
 
-    public void setFpgAtivo(String fpgAtivo) {
-        this.fpgAtivo = fpgAtivo;
+    public void setFpgTipo(String fpgTipo) {
+        this.fpgTipo = fpgTipo;
     }
 
     public Boolean getFpgPermiteParcelamento() {
@@ -81,12 +84,12 @@ public class FormaPagamento implements Serializable {
         this.fpgPermiteParcelamento = fpgPermiteParcelamento;
     }
 
-    public Integer getFpgNumeroMaximoParcelas() {
-        return fpgNumeroMaximoParcelas;
+    public Integer getFpgNumMaxParcelas() {
+        return fpgNumMaxParcelas;
     }
 
-    public void setFpgNumeroMaximoParcelas(Integer fpgNumeroMaximoParcelas) {
-        this.fpgNumeroMaximoParcelas = fpgNumeroMaximoParcelas;
+    public void setFpgNumMaxParcelas(Integer fpgNumMaxParcelas) {
+        this.fpgNumMaxParcelas = fpgNumMaxParcelas;
     }
 
     public BigDecimal getFpgTaxaAdicional() {

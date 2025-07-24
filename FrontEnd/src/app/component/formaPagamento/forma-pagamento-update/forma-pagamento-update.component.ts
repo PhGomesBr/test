@@ -24,7 +24,7 @@ export class FormaPagamentoUpdateComponent {
 
   updateFormaPagamento(): void {
     this.formaPagamentoService.update(this.formaPagamento).subscribe(() => {
-      this.formaPagamentoService.showMessage('Forma de pagamento excluida atualizado com sucesso!')
+      this.formaPagamentoService.showMessage('Forma de pagamento atualizado com sucesso!')
       this.router.navigate(['/formaPagamento'])
     })
   }

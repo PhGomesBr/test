@@ -70,13 +70,13 @@
             <input matInput [(ngModel)]="cliente.conEmail" name="conEmail">
         </mat-form-field>
     </form>
+    <div>
+        <button class="btnSave" (click)="updateCliente()" color="primary">
+            Atualizar
+        </button>
 
-    <button class="btnSave" (click)="updateCliente()" color="primary">
-        Atualizar
-    </button>
-
-    <button class="btnCancel" (click)="cancel()">
-        Cancelar
-    </button>
-
+        <button class="btnCancel" (click)="cancel()">
+            Cancelar
+        </button>
+    </div>
 </mat-card>

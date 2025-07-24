@@ -59,7 +59,15 @@ form {
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
+    width: 50%;
+    color: #fff;
     transition: all 0.3s ease;
+  }
+  .btnSave{
+    background-color: #2e7d32;
+  }
+  .btnCancel{
+    background-color: #d32f2f;
   }
   
   /* Estilo botão salvar */
@@ -68,8 +76,8 @@ form {
     color: white;
   }
   
-  button.mat-raised-button:hover {
-    background-color: #2e7d32;
+  button.btnSave:hover {
+    background-color: #145719;
   }
   
   /* Estilo botão cancelar */
@@ -79,24 +87,14 @@ form {
     background-color: white;
   }
   
-  button.mat-stroked-button:hover {
-    background-color: #ffebee;
+  button.btnCancel:hover {
+    background-color: #6b0f0f;
   }
 
   mat-form-field.full-width {
     grid-column: span 2;
   }
 
-  button{
-    width: 50%;
-    color: #fff;
-  }
-  .btnSave{
-    background-color: #2e7d32;
-  }
-  .btnCancel{
-    background-color: #d32f2f;
-  }
 
   
 

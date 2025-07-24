@@ -25,7 +25,7 @@ export class FormaPagamentoDeleteComponent {
 
   deleteFormaPagamento(): void {
     this.formaPagamentoService.delete(this.formaPagamento.fpgId!).subscribe(() =>{
-    this.formaPagamentoService.showMessage('Produto excluido com sucesso!')  
+    this.formaPagamentoService.showMessage('Forma de Pagamento excluido com sucesso!')  
     this.router.navigate(['/formaPagamento'])
     })
   }
