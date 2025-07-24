@@ -76,13 +76,14 @@
             <input matInput [(ngModel)]="fornecedor.conEmail" name="conEmail" disabled>
         </mat-form-field>
     </form>
-
+    <div>
     <button mat-raised-button (click)="deleteFornecedor()" color="primary">
         Excluir
     </button>
-
+    
     <button mat-raised-button (click)="cancel()">
         Cancelar
     </button>
-
+    
+    </div>
 </mat-card>
