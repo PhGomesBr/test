@@ -16,7 +16,7 @@
             <input matInput [(ngModel)]="fornecedor.forCnpj" name="forCnpj" disabled>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="campo full-width">
             <mat-label>Razão Social</mat-label>
             <mat-icon matPrefix>business</mat-icon>
             <input matInput [(ngModel)]="fornecedor.forRazaoSocial" name="forRazaoSocial" disabled>
@@ -49,7 +49,7 @@
             <input matInput [(ngModel)]="fornecedor.endCep" name="endCep" disabled>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="campo full-width">
             <mat-label>Estado</mat-label>
             <mat-icon matPrefix>map</mat-icon>
             <input matInput [(ngModel)]="fornecedor.endEstado" name="endEstado" disabled>
@@ -70,18 +70,18 @@
             <input matInput [(ngModel)]="fornecedor.conTelefoneComercial" name="conTelefoneComercial" disabled>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="campo full-width">
             <mat-label>E-mail</mat-label>
             <mat-icon matPrefix>email</mat-icon>
             <input matInput [(ngModel)]="fornecedor.conEmail" name="conEmail" disabled>
         </mat-form-field>
     </form>
-    <div>
-    <button mat-raised-button (click)="deleteFornecedor()" color="primary">
+    <div class="botoes">
+    <button class="btnExcl" (click)="deleteFornecedor()" color="primary">
         Excluir
     </button>
     
-    <button mat-raised-button (click)="cancel()">
+    <button class="btnCancel" (click)="cancel()">
         Cancelar
     </button>
     

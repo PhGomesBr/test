@@ -59,11 +59,11 @@ button {
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
-  width: 50%;
+  width: 100%;
   color: #fff;
   transition: all 0.3s ease;
 }
-.btnSave{
+.btnExcl{
   background-color: #2e7d32;
 }
 .btnCancel{
@@ -76,7 +76,7 @@ button.mat-raised-button {
   color: white;
 }
 
-button.btnSave:hover {
+button.btnExcl:hover {
   background-color: #145719;
 }
 

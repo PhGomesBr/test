@@ -92,7 +92,7 @@
         <mat-icon matPrefix>update</mat-icon>
         <input matInput [value]="(product.proDataAtualizacao | date:'dd/MM/yyyy')" disabled>
       </mat-form-field>
-
+      <div class="botoes">
       <!-- Botões -->
       <button class="btnExcl" (click)="deleteProduct()" color="primary">
         Excluir
@@ -101,6 +101,7 @@
       <button class="btnCancel" (click)="cancel()">
         Cancelar
       </button>
+      </div>
     </form>
   </div>
 </mat-card>
