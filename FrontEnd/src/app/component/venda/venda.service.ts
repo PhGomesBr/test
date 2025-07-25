@@ -13,25 +13,28 @@ export interface VendaSemana {
   providedIn: 'root'
 })
 export class VendaService {
-  private apiUrl = 'http://localhost:8080/vendas/semana'; 
-  baseUrl = 'http://localhost:8080/vendas';
+  private baseUrl = 'http://localhost:8080/vendas';  // URL para acessar as vendas
+  private vendaSemanaUrl = 'http://localhost:8080/vendas/semana';  // URL para vendas semanais
 
-  constructor(private http: HttpClient) {}
 
-  getVendasPorSemana(): Observable<VendaSemana[]> {
-    return this.http.get<VendaSemana[]>(this.apiUrl);
+  constructor(private http: HttpClient) { }
+
+  create(venda: Venda): Observable<Venda> {
+    return this.http.post<Venda>(this.baseUrl, venda);
   }
 
-  create(sale: Venda): Observable<Venda> {
-    return this.http.post<Venda>(this.baseUrl, sale);
-  }
-
-  read(): Observable<Venda[]>{
+  read(): Observable<Venda[]> {
     return this.http.get<Venda[]>(this.baseUrl);
   }
 
-  readById(id: string): Observable<Venda>{
-    const url = `${this.baseUrl}/${id}`;
-    return this.http.get<Venda>(url);
+  readById(id: number): Observable<Venda> {
+    return this.http.get<Venda>(`${this.baseUrl}/${id}`);
   }
+
+  // Método para obter vendas semanais (ex: total de vendas por semana)
+  getVendasPorSemana(): Observable<VendaSemana[]> {
+    return this.http.get<VendaSemana[]>(this.vendaSemanaUrl);
+  }
+
+
 }

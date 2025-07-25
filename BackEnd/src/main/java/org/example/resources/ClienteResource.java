@@ -31,10 +31,15 @@ public class ClienteResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDto> findById(@PathVariable Long id) {
-        Cliente obj = clienteService.findById(id);
-        ClienteDto dto = clienteService.toNewDto(obj);
-        return ResponseEntity.ok().body(dto); //  Retorna o DTO corretamente
+        try {
+            Cliente obj = clienteService.findById(id);
+            ClienteDto dto = clienteService.toNewDto(obj);
+            return ResponseEntity.ok().body(dto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
 
     @PostMapping

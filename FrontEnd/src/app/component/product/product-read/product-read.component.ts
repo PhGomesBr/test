@@ -8,12 +8,21 @@ import { ProductService } from '../product.service';
   styleUrls: ['./product-read.component.css'] // Caminho para o arquivo de estilos CSS
 })
 export class ProductReadComponent implements OnInit {
-  @Input() 
+  @Input()
   products!: Product[]; // Lista de produtos
-  displayedColumns = ['proId', 'proNome', 'proPrecoCusto', 'proPrecoVenda', 'proQuantidadeEstoque','action']; // Colunas exibidas na tabela
-
+  displayedColumns = ['proNome',
+    'proPrecoCusto',
+    'proPrecoVenda',
+    'proQuantidadeEstoque',
+    'proCategoria',
+    'proUnidadeMedida',
+    'proCodigoBarras',
+    'proMarca', 
+    'proAtivo', 
+    'forId', 
+    'actions'];
   // Injeta o serviço ProductService no construtor
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   // Método executado ao inicializar o componente
   ngOnInit(): void {

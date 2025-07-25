@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VendaService {
@@ -46,11 +47,10 @@ public class VendaService {
 
     @Transactional
     public Venda salvarVenda(VendaDto dto) {
-
-        Cliente cliente = clienteRepository.findById(dto.getClienteId())
+        Cliente cliente = clienteRepository.findById(dto.getCliId())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-        FormaPagamento formaPagamento = formaPagamentoRepository.findById(dto.getFormaPagamentoId())
+        FormaPagamento formaPagamento = formaPagamentoRepository.findById(dto.getFpgId())
                 .orElseThrow(() -> new RuntimeException("Forma de pagamento não encontrada"));
 
         Venda venda = new Venda();
@@ -62,9 +62,8 @@ public class VendaService {
         venda = vendaRepository.save(venda);
 
         List<VendaItem> itens = new ArrayList<>();
-
         for (VendaItemDto itemDto : dto.getItens()) {
-            Produto produto = produtoRepository.findById(itemDto.getProdutoId())
+            Produto produto = produtoRepository.findById(itemDto.getProId())
                     .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
             VendaItem item = new VendaItem();
@@ -80,5 +79,16 @@ public class VendaService {
         venda.setItens(itens);
 
         return venda;
+    }
+
+    // Novo método para listar todas as vendas já com cliente embutido
+    public List<Venda> listarTodasVendas() {
+        // Assuming vendaRepository.findAll() já traz os objetos cliente porque está com @ManyToOne(fetch=FetchType.EAGER)
+        return vendaRepository.findAll();
+    }
+
+    public Venda findById(Long id) {
+        Optional<Venda> vendaOpt = vendaRepository.findById(id);
+        return vendaOpt.orElse(null);
     }
 }

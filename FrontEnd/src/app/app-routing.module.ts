@@ -25,7 +25,6 @@ import { VendaCrudComponent } from './views/venda-crud/venda-crud.component';
 import { VendaCreateComponent } from './component/venda/venda-create/venda-create.component';
 
 
-
 const routes: Routes = [
   {
     path: "",

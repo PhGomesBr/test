@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/vendas")
 public class VendaResource {
@@ -27,5 +27,17 @@ public class VendaResource {
     public ResponseEntity<List<VendaSemanaDto>> listarVendasSemana() {
         List<VendaSemanaDto> vendas = vendaService.obterVendasPorSemana();
         return ResponseEntity.ok(vendas);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Venda>> listarTodasVendas() {
+        List<Venda> vendas = vendaService.listarTodasVendas();
+        return ResponseEntity.ok(vendas);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Venda> listarVendaPorId(@PathVariable Long id) {
+        Venda venda = vendaService.findById(id);
+        return venda != null ? ResponseEntity.ok(venda) : ResponseEntity.notFound().build();
     }
 }
