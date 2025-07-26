@@ -28,7 +28,7 @@ export class ProductCreateComponent implements OnInit {
     proDataCadastro: '',
     proDataAtualizacao: '',
     fornecedor: {
-      forId: 0
+      forId: 0,
     }
   };
 
