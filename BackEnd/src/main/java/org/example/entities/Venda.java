@@ -1,9 +1,14 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.example.entities.VendaItem;
+
 
 @Entity
 @Table(name = "venda")
@@ -29,6 +34,7 @@ public class Venda {
     private BigDecimal valorTotal;
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // Evita o ciclo infinito
     private List<VendaItem> itens;
 
     //construtor

@@ -10,7 +10,7 @@ import { VendaService } from '../venda.service';
 export class VendaReadComponent implements OnInit {
   @Input() vendas: Venda[] = [];
 
-  displayedColumns = ['venId', 'vendaCodigo', 'venData', 'cliente', 'valorTotal', 'fdpId'];
+  displayedColumns = ['venId', 'vendaCodigo', 'venData', 'cliId', 'valorTotal', 'fdpId'];
   constructor(private vendaService: VendaService) {}
 
   ngOnInit(): void {

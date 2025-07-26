@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VendaService {
@@ -91,4 +92,27 @@ public class VendaService {
         Optional<Venda> vendaOpt = vendaRepository.findById(id);
         return vendaOpt.orElse(null);
     }
+
+    public VendaDto converterParaDto(Venda venda) {
+        VendaDto dto = new VendaDto();
+        dto.setVenId(venda.getVenId());
+        dto.setVenData(venda.getVenData());
+        dto.setCliId(venda.getCliente().getCliId());
+        dto.setFpgId(venda.getFormaPagamento().getFpgId());
+        dto.setValorTotal(venda.getValorTotal());
+
+        // Converter os itens de venda para DTO
+        List<VendaItemDto> itensDto = venda.getItens().stream().map(item -> {
+            VendaItemDto itemDto = new VendaItemDto();
+            itemDto.setProId(item.getProduto().getProId());
+            itemDto.setQuantidade(item.getQuantidade());
+            itemDto.setPrecoUnitario(item.getPrecoUnitario());
+            return itemDto;
+        }).collect(Collectors.toList());
+
+        dto.setItens(itensDto);
+        return dto;
+    }
+
+
 }

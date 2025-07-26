@@ -27,9 +27,9 @@
             <td mat-cell *matCellDef="let row">{{row.fdpId}}</td>
         </ng-container>
         
-        <ng-container matColumnDef="cliente">
+        <ng-container matColumnDef="cliId">
           <th mat-header-cell *matHeaderCellDef>Cliente</th>
-          <td mat-cell *matCellDef="let row">{{row.cliente.cliId}}</td>
+          <td mat-cell *matCellDef="let row">{{ row.cliId }}</td>
         </ng-container>
       <!-- Header and Row declarations -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

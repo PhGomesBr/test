@@ -11,11 +11,11 @@ export class ProductReadComponent implements OnInit {
   @Input()
   products!: Product[]; // Lista de produtos
   displayedColumns = ['proNome',
-    'proPrecoCusto',
+    //'proPrecoCusto',
     'proPrecoVenda',
     'proQuantidadeEstoque',
-    'proCategoria',
-    'proUnidadeMedida',
+    //'proCategoria',
+    //'proUnidadeMedida',
     'proCodigoBarras',
     'proMarca', 
     'proAtivo', 

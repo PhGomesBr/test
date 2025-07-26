@@ -19,9 +19,9 @@ export class VendaService {
 
   constructor(private http: HttpClient) { }
 
-  create(venda: Venda): Observable<Venda> {
-    return this.http.post<Venda>(this.baseUrl, venda);
-  }
+  create(venda: Venda): Observable<any> {
+    return this.http.post<any>(this.baseUrl, venda);
+  }  
 
   read(): Observable<Venda[]> {
     return this.http.get<Venda[]>(this.baseUrl);

@@ -1,5 +1,9 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.example.entities.Produto;
+import org.example.entities.Venda;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -14,6 +18,7 @@ public class VendaItem {
 
     @ManyToOne
     @JoinColumn(name = "ven_id", nullable = false)
+    @JsonBackReference // Evita o ciclo infinito ao serializar
     private Venda venda;
 
     @ManyToOne
@@ -26,7 +31,7 @@ public class VendaItem {
     @Column(name = "vit_preco_unitario", precision = 10, scale = 2, nullable = false)
     private BigDecimal precoUnitario;
 
-    //construtor
+    // Construtores
 
     public VendaItem() {
     }
@@ -38,7 +43,8 @@ public class VendaItem {
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
     }
-    // Getters e setters
+
+    // Getters e Setters
 
     public Long getVitId() {
         return vitId;

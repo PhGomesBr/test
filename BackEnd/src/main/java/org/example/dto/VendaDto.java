@@ -29,8 +29,7 @@ public class VendaDto {
     @NotEmpty
     private List<VendaItemDto> itens;
 
-    public VendaDto() {
-    }
+    // Getters e setters
 
     public Long getVenId() {
         return venId;

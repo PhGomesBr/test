@@ -108,7 +108,7 @@ export class VendaCreateComponent implements OnInit {
     this.vendaService.create(venda).subscribe({
       next: () => {
         this.snackBar.open('Venda criada com sucesso!', 'X', { duration: 3000 });
-        this.router.navigate(['/vendas']);
+        this.router.navigate(['/venda']);
       },
       error: (err) => {
         this.snackBar.open('Erro ao criar venda', 'X', { duration: 3000 });
