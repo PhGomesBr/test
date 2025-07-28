@@ -52,7 +52,8 @@ public class Fornecedor implements Serializable {
     // Construtores
     public Fornecedor() {}
 
-    public Fornecedor(String forNomeFantasia, String forCnpj, String forRazaoSocial) {
+    public Fornecedor(Long forId, String forNomeFantasia, String forCnpj, String forRazaoSocial) {
+        this.forId = forId;
         this.forNomeFantasia = forNomeFantasia;
         this.setForCnpj(forCnpj); // Sanitiza CNPJ
         this.forRazaoSocial = forRazaoSocial;

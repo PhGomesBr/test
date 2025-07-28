@@ -27,7 +27,7 @@ public class FormaPagamento implements Serializable {
     @Column(name = "FPG_PERMITE_PARCELAMENTO", nullable = false)
     private Boolean fpgPermiteParcelamento;
 
-    @NotNull(message = "Número máximo de parcelas é obrigatório")
+    @NotNull(message = "Número de parcelas deve ser no mínimo 1")
     @Min(value = 1, message = "Número de parcelas deve ser no mínimo 1")
     @Max(value = 12, message = "Número de parcelas não pode exceder 12")
     @Column(name = "FPG_NUM_MAX_PARCELAS", nullable = false)

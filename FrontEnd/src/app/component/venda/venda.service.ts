@@ -36,5 +36,16 @@ export class VendaService {
     return this.http.get<VendaSemana[]>(this.vendaSemanaUrl);
   }
 
+  //Contador
+private _vendaCount = 0;
+
+setVendaCount(count: number) {
+this._vendaCount = count;
+}
+
+getVendaCount(): number {
+return this._vendaCount;
+}
+
 
 }

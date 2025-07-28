@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/component/product/product.service';
-
+import { VendaService } from 'src/app/component/venda/venda.service';
 
 @Component({
   selector: 'app-home', // Define o seletor do componente
@@ -8,8 +8,10 @@ import { ProductService } from 'src/app/component/product/product.service';
   styleUrls: ['./home.component.css'] // Caminho para o arquivo de estilos CSS
 })
 export class HomeComponent implements OnInit{
-    constructor(public productService: ProductService) {}
+    constructor(public productService: ProductService,
+      public vendaService: VendaService) {}
     productCount: number = 0;
+    vendaCount: number = 0;
     estoqueBaixo: number = 0;
 
     ngOnInit(): void {
@@ -21,6 +23,10 @@ export class HomeComponent implements OnInit{
       this.productService.getEstoqueBaixo().subscribe({
         next: (qtd) => this.estoqueBaixo = qtd,
         error: (err) => console.error('Erro ao buscar estoque baixo', err)
+      });
+
+      this.vendaService.read().subscribe(vendas => {
+        this.vendaCount = vendas.length; // Conta a quantidade de produtos
       });
     }
 

@@ -87,6 +87,7 @@ public class FornecedorService {
 
     public Fornecedor fromDTO(FornecedorDto objDto) {
         Fornecedor fornec = new Fornecedor(
+                objDto.getForId(),
                 objDto.getForNomeFantasia(),
                 objDto.getForCnpj(),
                 objDto.getForRazaoSocial()
