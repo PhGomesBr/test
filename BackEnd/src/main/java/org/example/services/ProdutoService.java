@@ -68,4 +68,9 @@ public class ProdutoService {
     public long contarProdutosComEstoqueBaixo() {
         return repository.countByProQuantidadeEstoqueLessThan(5);
     }
+
+    //lista para os produtos com estoque baixo
+    public List<Produto> findProdutosComEstoqueBaixo(int limite) {
+        return repository.findByProQuantidadeEstoqueLessThan(limite);
+    }
 }

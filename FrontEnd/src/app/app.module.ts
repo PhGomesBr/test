@@ -51,8 +51,9 @@ import { NgChartsModule } from 'ng2-charts';
 import { VendaCreateComponent } from './component/venda/venda-create/venda-create.component';
 import { VendaReadComponent } from './component/venda/venda-read/venda-read.component';
 import { VendaCrudComponent } from './views/venda-crud/venda-crud.component';
-import { ReactiveFormsModule } from '@angular/forms'; // ✅ IMPORTAR AQUI
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { EstoqueBaixoComponent } from './component/estoque-baixo/estoque-baixo.component';
+import{ MatAutocompleteModule } from '@angular/material/autocomplete'; // Adicionado para autocompletar
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +90,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // ✅ IMPORTAR AQUI
     VendaCreateComponent,
     VendaReadComponent,
     VendaCrudComponent,
-    
+    EstoqueBaixoComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +113,8 @@ import { ReactiveFormsModule } from '@angular/forms'; // ✅ IMPORTAR AQUI
     MatIconModule,
     NgChartsModule, // Importando o módulo de gráficos
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule, // Adicionado para autocompletar
   ],
   providers: [],
   bootstrap: [AppComponent]

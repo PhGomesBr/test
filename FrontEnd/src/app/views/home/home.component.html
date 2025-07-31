@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard Loja Gamer</title>
-</head>
-<body>
 <div class="conteiner">
   <main class="main-conteiner">
     <section class="cards">
@@ -14,29 +6,24 @@
         <p>R$ 1.250,00</p>
       </div>
       <a class="card" mat-list-item routerLink="/products">
-      <div>
-        <h3><span>📦</span> produtos cadastrados: <p>{{ productCount }}</p></h3>
-    </div>
-    </a>
+        <div>
+          <h3><span>📦</span> Produtos Cadastrados: <p>{{ productCount }}</p></h3>
+        </div>
+      </a>
       <div class="card">
         <h3><span>👥</span> Clientes Atendidos</h3>
         <p>{{ vendaCount }}</p>
       </div>
-      <div class="card warning">
-        <h3><span>⚠️</span> Estoque Baixo <p>
-          <!-- chama o estoque baixo-->
-          {{ estoqueBaixo }} produto{{ estoqueBaixo === 1 ? '' : 's' }}</p></h3>
-        
-      </div>
+      <a class="card warning" mat-list-item routerLink="/estoque-baixo">
+        <div>
+          <h3><span>⚠️</span> Estoque Baixo: <p>{{ estoqueBaixo }} produto{{ estoqueBaixo === 1 ? '' : 's' }}</p></h3>
+        </div>
+      </a>
     </section>
     <section class="charts">
-      <!--Gráfico-->
       <div class="chart">
         <app-grafico-vendas></app-grafico-vendas>
       </div>
     </section>
   </main>
 </div>
-</body>
-</html>
-

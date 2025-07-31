@@ -18,28 +18,32 @@
       <mat-form-field appearance="outline">
         <mat-label>Quantidade em Estoque</mat-label>
         <mat-icon matPrefix>stacked_bar_chart</mat-icon>
-        <input matInput type="number" placeholder="Quantidade em estoque" [(ngModel)]="product.proQuantidadeEstoque" name="proQuantidadeEstoque" min="0" required>
+        <input matInput type="number" placeholder="Quantidade em estoque" [(ngModel)]="product.proQuantidadeEstoque"
+          name="proQuantidadeEstoque" min="0" required>
       </mat-form-field>
 
       <!-- Preço de Custo -->
       <mat-form-field appearance="outline">
         <mat-label>Preço de Custo</mat-label>
         <mat-icon matPrefix>attach_money</mat-icon>
-        <input matInput type="number" placeholder="Preço de custo (R$)" [(ngModel)]="product.proPrecoCusto" name="proPrecoCusto" step="0.01" min="0" required>
+        <input matInput type="number" placeholder="Preço de custo (R$)" [(ngModel)]="product.proPrecoCusto"
+          name="proPrecoCusto" step="0.01" min="0" required>
       </mat-form-field>
 
       <!-- Preço de Venda -->
       <mat-form-field appearance="outline">
         <mat-label>Preço de Venda</mat-label>
         <mat-icon matPrefix>price_check</mat-icon>
-        <input matInput type="number" placeholder="Preço de venda (R$)" [(ngModel)]="product.proPrecoVenda" name="proPrecoVenda" step="0.01" min="0" required>
+        <input matInput type="number" placeholder="Preço de venda (R$)" [(ngModel)]="product.proPrecoVenda"
+          name="proPrecoVenda" step="0.01" min="0" required>
       </mat-form-field>
 
       <!-- Descrição -->
       <mat-form-field appearance="outline" class="campo full-width">
         <mat-label>Descrição</mat-label>
         <mat-icon matPrefix>description</mat-icon>
-        <textarea matInput placeholder="Descrição" [(ngModel)]="product.proDescricao" name="proDescricao" required></textarea>
+        <textarea matInput placeholder="Descrição" [(ngModel)]="product.proDescricao" name="proDescricao"
+          required></textarea>
       </mat-form-field>
 
       <!-- Categoria -->
@@ -99,7 +103,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Código de Barras</mat-label>
         <mat-icon matPrefix>qr_code_scanner</mat-icon>
-        <input matInput placeholder="Código de barras" [(ngModel)]="product.proCodigoBarras" name="proCodigoBarras" required>
+        <input matInput placeholder="Código de barras" [(ngModel)]="product.proCodigoBarras" name="proCodigoBarras"
+          required>
       </mat-form-field>
 
       <!-- Marca -->
@@ -159,7 +164,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Unidade de Medida</mat-label>
         <mat-icon matPrefix>straighten</mat-icon>
-        <input matInput placeholder="Unidade de medida" [(ngModel)]="product.proUnidadeMedida" name="proUnidadeMedida" required>
+        <input matInput placeholder="Unidade de medida" [(ngModel)]="product.proUnidadeMedida" name="proUnidadeMedida"
+          required>
       </mat-form-field>
 
       <!-- Produto Ativo -->
@@ -187,7 +193,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Data de Cadastro</mat-label>
         <mat-icon matPrefix>calendar_today</mat-icon>
-        <input matInput [matDatepicker]="picker1" placeholder="Data de Cadastro" [(ngModel)]="product.proDataCadastro" name="proDataCadastro" required>
+        <input matInput [matDatepicker]="picker1" placeholder="Data de Cadastro" [(ngModel)]="product.proDataCadastro"
+          name="proDataCadastro" required>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -196,22 +203,23 @@
       <mat-form-field appearance="outline">
         <mat-label>Data de Atualização</mat-label>
         <mat-icon matPrefix>update</mat-icon>
-        <input matInput [matDatepicker]="picker2" placeholder="Data de Atualização" [(ngModel)]="product.proDataAtualizacao" name="proDataAtualizacao" required>
+        <input matInput [matDatepicker]="picker2" placeholder="Data de Atualização"
+          [(ngModel)]="product.proDataAtualizacao" name="proDataAtualizacao" required>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
 
       <!-- Botões -->
       <div class="botoes">
-      <button class="btnSave" (click)="createProduct()" color="primary">
-        <mat-icon style="vertical-align: middle; margin-right: 4px;">save</mat-icon>
-        Salvar
-      </button>
+        <button class="btnSave" (click)="createProduct()" color="primary">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">save</mat-icon>
+          Salvar
+        </button>
 
-      <button class="btnCancel" (click)="cancel()">
-        <mat-icon style="vertical-align: middle; margin-right: 4px;">cancel</mat-icon>
-        Cancelar
-      </button>
+        <button class="btnCancel" (click)="cancel()">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">cancel</mat-icon>
+          Cancelar
+        </button>
       </div>
     </form>
   </div>

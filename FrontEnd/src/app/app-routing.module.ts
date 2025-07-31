@@ -23,7 +23,7 @@ import { ContatoUpdateComponent } from './component/contato/contato-update/conta
 import { FormaPagamentoDeleteComponent } from './component/formaPagamento/forma-pagamento-delete/forma-pagamento-delete.component';
 import { VendaCrudComponent } from './views/venda-crud/venda-crud.component';
 import { VendaCreateComponent } from './component/venda/venda-create/venda-create.component';
-
+import { EstoqueBaixoComponent } from './component/estoque-baixo/estoque-baixo.component';
 
 const routes: Routes = [
   {
@@ -119,6 +119,7 @@ component: FormaPagamentoCreateComponent
   path: "venda/create",
   component: VendaCreateComponent
 },
+{ path: 'estoque-baixo', component: EstoqueBaixoComponent }
 
 ];
 
