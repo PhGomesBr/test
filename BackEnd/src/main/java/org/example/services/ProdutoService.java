@@ -31,6 +31,8 @@ public class ProdutoService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+
+    
     public Produto insert( Long forId,Produto obj) {
         Fornecedor fornecedor = fornecedorRepository.findById(forId)
                 .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: "+forId));
