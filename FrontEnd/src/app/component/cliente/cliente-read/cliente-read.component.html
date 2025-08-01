@@ -1,5 +1,6 @@
 <!-- Container com elevação para exibir a tabela -->
-<div class="mat-elevation-z4 scrollable-form">
+<div class="mat-elevation-z4">
+  <div class="scrollable-form">
   <!-- Tabela Angular Material com fonte de dados vinculada ao array 'cliente' -->
   <table mat-table [dataSource]="clientes">
     
@@ -87,4 +88,5 @@
     <!-- Linha de dados da tabela -->
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+</div>
 </div>
