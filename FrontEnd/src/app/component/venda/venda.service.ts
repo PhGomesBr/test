@@ -36,6 +36,10 @@ export class VendaService {
     return this.http.get<VendaSemana[]>(this.vendaSemanaUrl);
   }
 
+  // Método para buscar lucro total
+  getLucroTotal(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/lucro-total`);
+  }
   //Contador
 private _vendaCount = 0;
 

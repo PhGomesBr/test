@@ -2,8 +2,8 @@
   <main class="main-conteiner">
     <section class="cards">
       <div class="card">
-        <h3><span>💰</span> Vendas do Dia</h3>
-        <p>R$ 1.250,00</p>
+        <h3><span>💰</span> Total de Lucro</h3>
+        <p class="valor">R$ {{ totalLucro | number:'1.2-2' }}</p>
       </div>
       <a class="card" mat-list-item routerLink="/products">
         <div>

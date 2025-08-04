@@ -18,4 +18,9 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
             "GROUP BY FUNCTION('YEAR', v.venData), FUNCTION('WEEK', v.venData) " +
             "ORDER BY ano, semana")
     List<Object[]> findTotalVendasPorSemana();
+
+    // Query para calcular lucro total somando (precoVenda - precoCusto) * quantidade dos itens
+    @Query("SELECT SUM((vi.precoUnitario - p.proPrecoCusto) * vi.quantidade) " +
+            "FROM VendaItem vi JOIN vi.produto p")
+    Double findLucroTotal();
 }

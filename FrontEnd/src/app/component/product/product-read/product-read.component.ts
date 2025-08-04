@@ -19,7 +19,7 @@ export class ProductReadComponent implements OnInit {
     'proCodigoBarras',
     'proMarca', 
     'proAtivo', 
-    'forNomeFantasia', 
+    //'forNomeFantasia', 
     'actions'];
   // Injeta o serviço ProductService no construtor
   constructor(private productService: ProductService) { }

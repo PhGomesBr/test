@@ -114,5 +114,9 @@ public class VendaService {
         return dto;
     }
 
-
+    //metodo do lucro total
+    public Double getLucroTotal() {
+        Double lucro = vendaRepository.findLucroTotal();
+        return lucro != null ? lucro : 0.0;
+    }
 }

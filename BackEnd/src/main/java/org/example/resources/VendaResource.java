@@ -46,4 +46,10 @@ public class VendaResource {
         Venda venda = vendaService.findById(id);
         return venda != null ? ResponseEntity.ok(venda) : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/lucro-total")
+    public ResponseEntity<Double> getLucroTotal() {
+        Double lucroTotal = vendaService.getLucroTotal();
+        return ResponseEntity.ok(lucroTotal);
+    }
 }
