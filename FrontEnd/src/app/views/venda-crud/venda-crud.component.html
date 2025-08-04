@@ -1,21 +1,15 @@
 <main>
-    <mat-card>
-      <!-- Botão para adicionar nova venda -->
-      <button mat-raised-button (click)="navigateToVendaCreate()" color="primary">
-        Nova Venda
-      </button>
-  
-      <!-- Campo de pesquisa para filtrar as vendas -->
-      <input
-        type="text"
-        placeholder="Pesquisar venda"
-        [(ngModel)]="searchTerm"
-        (input)="filterVendas()"
-        class="pesquisa"
-      />
-  
-      <!-- Componente para exibir a lista de vendas -->
-      <app-venda-read [vendas]="filteredVendas"></app-venda-read>
-    </mat-card>
-  </main>
-  
+  <button mat-raised-button (click)="navigateToVendaCreate()" color="primary">
+    Nova Venda
+  </button>
+
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (input)="filterVendas()"
+    placeholder="Buscar vendas..."
+    class="pesquisa"
+  />
+
+<app-venda-read [vendas]="vendaFilter"></app-venda-read>
+</main>

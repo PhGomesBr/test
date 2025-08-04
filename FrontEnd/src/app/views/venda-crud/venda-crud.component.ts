@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Venda } from '../../component/venda/venda.model';
-import { VendaService } from '../../component/venda/venda.service';
+import { HeaderService } from 'src/app/component/template/header/header.service';
+import { Venda } from 'src/app/component/venda/venda.model';
+import { VendaService } from 'src/app/component/venda/venda.service';
 
 @Component({
   selector: 'app-venda-crud',
@@ -9,27 +10,34 @@ import { VendaService } from '../../component/venda/venda.service';
   styleUrls: ['./venda-crud.component.css']
 })
 export class VendaCrudComponent implements OnInit {
-  vendas: Venda[] = [];
-  filteredVendas: Venda[] = [];
+
+  allVenda: Venda[] = [];
   searchTerm: string = '';
+  vendaFilter: Venda[] = [];
 
-  constructor(private vendaService: VendaService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.vendaService.read().subscribe(data => {
-      this.vendas = data;
-      this.filteredVendas = data;
-    });
-  }
+  constructor(
+    private headerService: HeaderService,
+    private router: Router,
+    private vendaService: VendaService
+  ) { }
 
   navigateToVendaCreate(): void {
-    this.router.navigate(['/venda/create']);
+    this.router.navigate(['venda/create']);
+  }
+
+  ngOnInit(): void {
+    this.headerService.setTitulo('Vendas');
+    this.headerService.setIcone('sell');
+    this.vendaService.read().subscribe((venda: Venda[]) => {
+      this.allVenda = venda;
+    })
   }
 
   filterVendas(): void {
-    const term = this.searchTerm.toLowerCase();
-    this.filteredVendas = this.vendas.filter(v =>
-      v.vendaCodigo.toLowerCase().includes(term)
+    const filter = this.searchTerm.toLocaleLowerCase();
+    this.vendaFilter = this.allVenda.filter(f =>
+      f.cliId?.toString().includes(filter) ||
+      f.vendaCodigo.toString().includes(filter)
     );
   }
 }

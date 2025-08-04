@@ -1,75 +1,93 @@
-<div>
-  <mat-card>
-    <h2 class="titulo">Cadastro de Venda</h2>
+<mat-card class="venda-card">
+  <mat-card-title>Cadastrar Venda</mat-card-title>
+  <div class="linha-amarela"></div>
 
-    <form [formGroup]="vendaForm" (ngSubmit)="onSubmit()">
-      <!-- Seção: Dados da Venda -->
-      <h3 class="subtitulo">Dados da Venda</h3>
+  <!-- Área com scroll interno -->
+  <div class="card-scrollable-content">
+      <form [formGroup]="vendaForm" (ngSubmit)="onSubmit()">
+          <h3 class="subtitulo">Dados da Venda</h3>
+          <div class="form-columns">
+              <mat-form-field appearance="outline">
+                  <mat-label>Código da Venda</mat-label>
+                  <mat-icon matPrefix>sell</mat-icon>
+                  <input matInput formControlName="vendaCodigo" readonly>
+              </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Código da Venda</mat-label>
-        <mat-icon matPrefix>confirmation_number</mat-icon>
-        <input matInput formControlName="vendaCodigo" readonly>
-      </mat-form-field>
+              <mat-form-field appearance="outline">
+                  <input matInput [matDatepicker]="picker1" placeholder="Data da Venda" formControlName="vendaData" readonly>
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Data da Venda</mat-label>
-        <mat-icon matPrefix>date_range</mat-icon>
-        <input matInput [matDatepicker]="picker" formControlName="vendaData">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+              <mat-form-field appearance="outline">
+                  <mat-label>Cliente</mat-label>
+                  <mat-icon matPrefix>person</mat-icon>
+                  <input type="text" matInput [formControl]="clienteControl" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCliente" 
+                      (optionSelected)="onClienteSelecionado($event.option.value)">
+                      <mat-option *ngFor="let cliente of clientesFiltrados" [value]="cliente">
+                          {{ cliente.cliNome }}
+                      </mat-option>
+                  </mat-autocomplete>
+              </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Cliente</mat-label>
-        <mat-icon matPrefix>person</mat-icon>
-        <input matInput type="number" formControlName="cliId" required>
-      </mat-form-field>
+              <mat-form-field appearance="outline">
+                  <mat-label>Forma de Pagamento</mat-label>
+                  <mat-icon matPrefix>payments</mat-icon>
+                  <input type="text" matInput [formControl]="formaPagamentoControl" [matAutocomplete]="autoFpg"/>
+                  <mat-autocomplete #autoFpg="matAutocomplete" [displayWith]="displayFormaPagamento"
+                      (optionSelected)="onFormaPagamentoSelecionada($event.option.value)">
+                      <mat-option *ngFor="let formaPagamento of formaPagamentosFiltrados" [value]="formaPagamento">
+                          {{ formaPagamento.fpgDescricao }}
+                      </mat-option>
+                  </mat-autocomplete>
+              </mat-form-field>
+          </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Forma de Pagamento</mat-label>
-        <mat-icon matPrefix>payment</mat-icon>
-        <input matInput type="number" formControlName="fpgId" required>
-      </mat-form-field>
+          <h3 class="subtitulo">Dados Dos Produtos Vendidos</h3>
+          <div formArrayName="compras">
+              <div *ngFor="let compra of vendaItem.controls; let i = index" [formGroupName]="i" class="produto-bloco form-columns">
+                  <mat-form-field appearance="outline">
+                      <mat-label>Produto</mat-label>
+                      <mat-icon matPrefix>storefront</mat-icon>
+                      <mat-select placeholder="Produto" formControlName="proId" (selectionChange)="onProdutoChange(i)" required>
+                          <mat-option value="" disabled>Selecione um produto</mat-option>
+                          <mat-option *ngFor="let p of products" [value]="p.proId">{{ p.proNome }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
 
-      <!-- Seção: Produtos -->
-      <h3 class="subtitulo">Produtos</h3>
+                  <mat-form-field appearance="outline">
+                      <mat-label>Quantidade</mat-label>
+                      <mat-icon matPrefix>inventory_2</mat-icon>
+                      <input matInput type="number" formControlName="compraQuantidade" min="1" required>
+                  </mat-form-field>
 
-      <div formArrayName="compras">
-        <div *ngFor="let compra of vendaItem.controls; let i = index" [formGroupName]="i" class="produto-item">
-  
-          <mat-form-field appearance="outline">
-            <mat-label>Produto</mat-label>
-            <mat-select formControlName="proId" (selectionChange)="onProdutoChange(i)">
-              <mat-option *ngFor="let produto of products" [value]="produto.proId">
-                {{ produto.proNome }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-  
-          <mat-form-field appearance="outline">
-            <mat-label>Quantidade</mat-label>
-            <input matInput type="number" formControlName="compraQuantidade">
-          </mat-form-field>
-  
-          <mat-form-field appearance="outline">
-            <mat-label>Preço Unitário</mat-label>
-            <input matInput type="number" formControlName="compraPrecoVenda">
-          </mat-form-field>
-  
-          <button class="btnRemove" color="warn" type="button" (click)="removeCompra(i)">Remover</button>
-  
-          <mat-divider></mat-divider>
-        </div>
-      </div>
+                  <mat-form-field appearance="outline">
+                      <mat-label>Preço de Venda Unitário(R$)</mat-label>
+                      <mat-icon matPrefix>price_change</mat-icon>
+                      <input matInput type="number" formControlName="compraPrecoVenda" step="0.01" min="0" required>
+                  </mat-form-field>
 
-      <button class="btnAdd" color="accent" type="button" (click)="addCompra()">Adicionar Produto</button>
+                  <div class="botoes-produto">
+                      <button class="btnRemove" color="warn" type="button" (click)="removeCompra(i)" *ngIf="vendaItem.length > 1">
+                          Remover Produto
+                      </button>
+                      <button class="btnAdd" mat-raised-button color="primary" type="button" (click)="addCompra()">
+                          Adicionar Produto
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
 
-      <!-- Botões de Ação -->
-      <div class="botoes">
-        <button class="btnSave" color="primary" type="submit">Salvar Venda</button>
-        <button class="btnCancel" color="warn" type="reset">Limpar Formulário</button>
-      </div>
-    </form>
-  </mat-card>
-</div>
+  <!-- Botões fixos fora do scroll -->
+  <div class="botoes-finais" style="display:flex; gap: 10px; margin-top: 20px;">
+      <button class="btnSave" color="primary" type="submit" [disabled]="vendaForm.invalid" (click)="onSubmit()">
+          Salvar
+      </button>
+      <button class="btnCancel" color="warn" type="button" (click)="cancel()">
+          Cancelar
+      </button>
+  </div>
+</mat-card>

@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../product/product.model';
 import { ProductService } from '../../product/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { VendaService } from '../venda.service';
 import { Venda, VendaItem } from '../venda.model';
+import { Cliente } from '../../cliente/cliente.model';
+import { FormaPagamento } from '../../formaPagamento/formaPagamento.model';
+import { ClienteContatoService } from '../../cliente/cliente.service';
+import { formaPagamentoService } from '../../formaPagamento/formaPagamento.service';
 
 @Component({
   selector: 'app-venda-create',
@@ -13,20 +17,29 @@ import { Venda, VendaItem } from '../venda.model';
   styleUrls: ['./venda-create.component.css']
 })
 export class VendaCreateComponent implements OnInit {
-
   vendaForm!: FormGroup;
   products: Product[] = [];
+  clienteControl = new FormControl('');
+  clientes: Cliente[] = [];
+  clientesFiltrados: Cliente[] = [];
+  formaPagamentos: FormaPagamento[] = [];
+  formaPagamentoControl = new FormControl('');
+  formaPagamentosFiltrados: FormaPagamento[] = [];
 
-  constructor( private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private productService: ProductService,
+    private clienteService: ClienteContatoService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private vendaService: VendaService) { }
+    private vendaService: VendaService,
+    private formaPagamentoService: formaPagamentoService
+  ) {}
 
-    generateVendaCodigo(): string {
-      const codigo = Math.floor(Math.random() * 1000000);
-      return codigo.toString().padStart(6, '0');
-    }
+  generateVendaCodigo(): string {
+    const codigo = Math.floor(Math.random() * 1000000);
+    return codigo.toString().padStart(6, '0');
+  }
 
   ngOnInit(): void {
     this.vendaForm = this.fb.group({
@@ -38,14 +51,40 @@ export class VendaCreateComponent implements OnInit {
     });
 
     this.productService.read().subscribe({
-      next: produtos => this.products = produtos,
-      error:  err => this.snackBar.open('Erro ao carregar produtos', 'X', {duration: 3000})
+      next: produtos => (this.products = produtos),
+      error: err => this.snackBar.open('Erro ao carregar produtos', 'X', { duration: 3000 })
+    });
+
+    this.clienteService.readClientes().subscribe(clientes => {
+      this.clientes = clientes;
+      this.clientesFiltrados = clientes;
+
+      this.clienteControl.valueChanges.subscribe(value => {
+        const filter = typeof value === 'string' ? value.toLowerCase() : '';
+        this.clientesFiltrados = this.clientes.filter(cliente =>
+          cliente.cliNome.toLowerCase().includes(filter)
+        );
+      });
+      
+    });
+
+    this.formaPagamentoService.read().subscribe(fp => {
+      this.formaPagamentos = fp;
+      this.formaPagamentosFiltrados = fp;
+
+      this.formaPagamentoControl.valueChanges.subscribe(value => {
+        const filter = typeof value === 'string' ? value.toLowerCase() : '';
+        this.formaPagamentosFiltrados = this.formaPagamentos.filter(fp =>
+          fp.fpgDescricao.toLowerCase().includes(filter)
+        );
+      });
+      
     });
 
     this.addCompra(); // Adiciona uma compra inicial ao formulário
   }
 
-  get vendaItem(){
+  get vendaItem(): FormArray {
     return this.vendaForm.get('compras') as FormArray;
   }
 
@@ -65,13 +104,16 @@ export class VendaCreateComponent implements OnInit {
     this.vendaItem.removeAt(index);
   }
 
-  
+  cancel(): void {
+    this.router.navigate(['/venda']);
+  }
+
   onProdutoChange(index: number): void {
     const compraGroup = this.vendaItem.at(index);
     const proId = compraGroup.get('proId')?.value;
 
     const produto = this.products.find(p => p.proId === proId);
-    if(produto) {
+    if (produto) {
       compraGroup.patchValue({
         compraPrecoVenda: produto.proPrecoVenda
       });
@@ -84,38 +126,58 @@ export class VendaCreateComponent implements OnInit {
 
   onSubmit(): void {
     const raw = this.vendaForm.value;
-    
-    const itens: VendaItem[] = raw.compras.map((item: any) => ({
-      proId: item.proId,
-      quantidade: item.compraQuantidade,
-      precoUnitario: item.compraPrecoVenda
-    }));
-  
-    const valorTotal = itens.reduce(
-      (sum: number, item: VendaItem) => sum + item.quantidade * item.precoUnitario,
+
+    const vendaValorTotal = raw.compras.reduce(
+      (sum: number, item: any) => sum + item.compraQuantidade * item.compraPrecoVenda,
       0
     );
-  
+
     const venda: Venda = {
-      venData: new Date(raw.vendaData).toISOString(),
       vendaCodigo: raw.vendaCodigo,
+      venData: new Date(raw.vendaData).toISOString(),
+      valorTotal: vendaValorTotal,
       cliId: raw.cliId,
       fpgId: raw.fpgId,
-      valorTotal: valorTotal,
-      itens: itens
+      itens: raw.compras.map((item: any) => ({
+        proId: item.proId,
+        quantidade: item.compraQuantidade,
+        precoUnitario: item.compraPrecoVenda
+      }))
     };
-  
+
     this.vendaService.create(venda).subscribe({
       next: () => {
         this.snackBar.open('Venda criada com sucesso!', 'X', { duration: 3000 });
         this.router.navigate(['/venda']);
       },
       error: (err) => {
-        this.snackBar.open('Erro ao criar venda', 'X', { duration: 3000 });
-        console.error(err);
-        console.log(venda);
+        if (err.status === 409) {
+          const novoCodigo = this.generateVendaCodigo();
+          this.vendaForm.get('vendaCodigo')?.setValue(novoCodigo);
+          this.snackBar.open('Código duplicado. Novo código gerado automaticamente.', 'X', { duration: 3000 });
+        } else {
+          this.snackBar.open('Erro ao criar venda', 'X', { duration: 3000 });
+          console.error(err);
+        }
       }
     });
   }
+
+  displayCliente(cliente: Cliente): string {
+    return cliente.cliNome;
+  }
   
+
+  onClienteSelecionado(cliente: Cliente): void {
+    this.vendaForm.get('cliId')?.setValue(cliente.cliId);
+  }
+
+  displayFormaPagamento(fp: FormaPagamento): string {
+    return fp?.fpgDescricao || '';
+  }
+  
+
+  onFormaPagamentoSelecionada(fp: FormaPagamento): void {
+    this.vendaForm.get('fpgId')?.setValue(fp.fpgId);
+  }
 }
