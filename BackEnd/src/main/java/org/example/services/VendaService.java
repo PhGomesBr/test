@@ -5,6 +5,7 @@ import org.example.dto.VendaItemDto;
 import org.example.dto.VendaSemanaDto;
 import org.example.entities.*;
 import org.example.repositories.*;
+import org.example.resources.ProdutoResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,9 @@ public class VendaService {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private ProdutoService produtoService;
 
     public List<VendaSemanaDto> obterVendasPorSemana() {
         List<Object[]> resultados = vendaRepository.findTotalVendasPorSemana();
@@ -67,6 +71,8 @@ public class VendaService {
         for (VendaItemDto itemDto : dto.getItens()) {
             Produto produto = produtoRepository.findById(itemDto.getProId())
                     .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+            produtoService.reduzirEstoque(produto.getProId(), itemDto.getQuantidade());
 
             VendaItem item = new VendaItem();
             item.setVenda(venda);
@@ -121,4 +127,6 @@ public class VendaService {
         Double lucro = vendaRepository.findLucroTotal();
         return lucro != null ? lucro : 0.0;
     }
+
+
 }
