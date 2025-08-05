@@ -59,6 +59,7 @@ public class VendaService {
         venda.setFormaPagamento(formaPagamento);
         venda.setVenData(dto.getVenData());
         venda.setValorTotal(dto.getValorTotal());
+        venda.setVendaCodigo(dto.getVendaCodigo());
 
         venda = vendaRepository.save(venda);
 
@@ -100,6 +101,7 @@ public class VendaService {
         dto.setCliId(venda.getCliente().getCliId());
         dto.setFpgId(venda.getFormaPagamento().getFpgId());
         dto.setValorTotal(venda.getValorTotal());
+        dto.setVendaCodigo(venda.getVendaCodigo());
 
         // Converter os itens de venda para DTO
         List<VendaItemDto> itensDto = venda.getItens().stream().map(item -> {

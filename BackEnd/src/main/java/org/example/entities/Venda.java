@@ -26,6 +26,8 @@ public class Venda {
     @JoinColumn(name = "cli_id", nullable = false)
     private Cliente cliente;
 
+    @Column(name = "ven_codigo", nullable = false)
+    private String vendaCodigo;
     @ManyToOne
     @JoinColumn(name = "fpg_id", nullable = false)
     private FormaPagamento formaPagamento;
@@ -42,9 +44,10 @@ public class Venda {
     public Venda() {
     }
 
-    public Venda(Long venId, LocalDateTime venData, Cliente cliente, FormaPagamento formaPagamento, BigDecimal valorTotal, List<VendaItem> itens) {
+    public Venda(Long venId, LocalDateTime venData, Cliente cliente, FormaPagamento formaPagamento, BigDecimal valorTotal, List<VendaItem> itens, String vendaCodigo) {
         this.venId = venId;
         this.venData = venData;
+        this.vendaCodigo = vendaCodigo;
         this.cliente = cliente;
         this.formaPagamento = formaPagamento;
         this.valorTotal = valorTotal;
@@ -98,5 +101,13 @@ public class Venda {
 
     public void setItens(List<VendaItem> itens) {
         this.itens = itens;
+    }
+
+    public String getVendaCodigo() {
+        return vendaCodigo;
+    }
+
+    public void setVendaCodigo(String vendaCodigo) {
+        this.vendaCodigo = vendaCodigo;
     }
 }
