@@ -2,14 +2,16 @@
   <button mat-raised-button (click)="navigateToProductCreate()" color="primary">
     Novo Produto
   </button>
-  <button mat-raised-button (click)="toggleEstoqueBaixo()" color="warn">
-    {{ mostrarEstoqueBaixo ? 'Mostrar Todos os Produtos' : 'Mostrar Estoque Baixo' }}
-  </button>
-  <input 
+  <div>
+    <input 
     type="text" 
     placeholder="Pesquisar produto" 
     [(ngModel)]="searchTerm" 
     (input)="filterProducts()"
     class="pesquisa">
-  <app-product-read [products]="filteredProducts"></app-product-read>
+    <app-product-read [products]="filteredProducts"></app-product-read>
+    <button mat-raised-button (click)="toggleEstoqueBaixo()" color="warn" class="estoque">
+      {{ mostrarEstoqueBaixo ? 'Mostrar Todos os Produtos' : 'Mostrar Estoque Baixo' }}
+    </button>
+</div>
 </mat-card>

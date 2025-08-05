@@ -13,6 +13,20 @@ mat-card {
     padding: 20px;
     margin-bottom: 20px;
 }
+button.estoque{
+    margin: 10px;
+    padding: 10px 15px;
+    width: 280px;
+    border: 2px solid #9b59b6; /* tom roxo */
+    border-radius: 8px;
+    background-color: #1e1e2f;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s ease-in-out;
+    margin-top: 25px;
+
+}
 
 /* Estilização padrão dos botões */
 button {
@@ -26,6 +40,7 @@ button {
     font-weight: 600; /* Deixa o texto um pouco mais marcante */
     letter-spacing: 0.5px; /* Espaçamento sutil entre letras */
     align-items: center; /* Centraliza o conteúdo do botão */
+    font-size: 16px;
     transition: all 0.3s ease; /* Transições suaves para hover e active */
 }
 

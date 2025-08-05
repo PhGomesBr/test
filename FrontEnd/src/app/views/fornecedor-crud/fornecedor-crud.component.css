@@ -27,6 +27,8 @@ button {
     font-weight: 600; /* Deixa o texto um pouco mais marcante */
     letter-spacing: 0.5px; /* Espaçamento sutil entre letras */
     transition: all 0.3s ease; /* Transições suaves para hover e active */
+    font-size: 16px;
+
 }
 
 /* Efeito visual ao passar o mouse por cima do botão */
