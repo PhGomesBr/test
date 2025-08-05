@@ -65,6 +65,8 @@ export class ProductUpdateComponent implements OnInit {
     });
   }
 
+  view = false;
+
   updateProduct(): void {
     this.productService.update(this.product).subscribe({
       next: () => {

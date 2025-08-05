@@ -21,16 +21,17 @@ export class ProductCreateComponent implements OnInit {
     proPrecoVenda: null,
     proQuantidadeEstoque: null,
     proCategoria: '',
-    proCodigoBarras: '',
+    proCodigoBarras: this.generateCodigoBarra(),
     proMarca: '',
     proUnidadeMedida: '',
     proAtivo: true,
-    proDataCadastro: '',
-    proDataAtualizacao: '',
+    proDataCadastro: new Date().toISOString(),
+    proDataAtualizacao: new Date().toISOString(),
     fornecedor: {
       forId: 0,
     }
   };
+
 
   constructor(
     private productService: ProductService,
@@ -38,11 +39,19 @@ export class ProductCreateComponent implements OnInit {
     private router: Router
   ) {}
 
+  generateCodigoBarra(): string {
+    const codigo = Math.floor(Math.random() * 1000000);
+    return codigo.toString().padStart(13, '2009');
+  }
+  
+
   ngOnInit(): void {
     this.fornecedorService.readFornecedores().subscribe((data: Fornecedor[]) => {
       this.fornecedores = data;
     });
   }
+
+  view = false;
 
   createProduct(): void {
     this.productService.create(this.product).subscribe(() => {

@@ -14,8 +14,8 @@
               </mat-form-field>
 
               <mat-form-field appearance="outline">
-                  <input matInput [matDatepicker]="picker1" placeholder="Data da Venda" formControlName="vendaData" readonly>
-                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-icon matPrefix>calendar_today</mat-icon>
+                <input matInput [matDatepicker]="picker1" placeholder="Data da Venda" formControlName="vendaData" readonly>
                   <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
 

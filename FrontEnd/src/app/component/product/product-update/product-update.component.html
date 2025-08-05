@@ -168,7 +168,7 @@
       </mat-form-field>
 
       <!-- Fornecedor -->
-      <mat-form-field appearance="outline" class="full-width custom-select">
+      <mat-form-field appearance="outline">
         <mat-label>Fornecedor</mat-label>
         <mat-icon matPrefix>store</mat-icon>
         <mat-select [(ngModel)]="product.fornecedor" name="fornecedor" required>
@@ -179,20 +179,22 @@
       </mat-form-field>
 
       <!-- Data de Cadastro -->
+      <div *ngIf="view">
       <mat-form-field appearance="outline">
         <mat-label>Data de Cadastro</mat-label>
         <mat-icon matPrefix>calendar_today</mat-icon>
-        <input matInput [matDatepicker]="picker1" placeholder="Data de Cadastro" [(ngModel)]="product.proDataCadastro" name="proDataCadastro" required>
+        <input matInput [matDatepicker]="picker1" placeholder="Data de Cadastro" [(ngModel)]="product.proDataCadastro" name="proDataCadastro" readonly>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
+      </div>
 
       <!-- Data de Atualização -->
       <mat-form-field appearance="outline">
         <mat-label>Data de Atualização</mat-label>
         <mat-icon matPrefix>update</mat-icon>
-        <input matInput [matDatepicker]="picker2" placeholder="Data de Atualização" [(ngModel)]="product.proDataAtualizacao" name="proDataAtualizacao" required>
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="picker2" placeholder="Data de Atualização" [(ngModel)]="product.proDataAtualizacao" name="proDataAtualizacao" required readonly>
+
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
 
