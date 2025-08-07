@@ -13,3 +13,9 @@ export interface Venda {
   valorTotal: number;
   itens: VendaItem[];
 }
+
+export interface VendaSemana {
+  ano: number;
+  semana: number;
+  totalVendas: number;
+}

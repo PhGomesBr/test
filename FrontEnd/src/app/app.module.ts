@@ -55,7 +55,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EstoqueBaixoComponent } from './component/estoque-baixo/estoque-baixo.component';
 import{ MatAutocompleteModule } from '@angular/material/autocomplete'; // Adicionado para autocompletar
 import { MatSortModule } from '@angular/material/sort'; // Adicionado
-
 @NgModule({
   declarations: [
     AppComponent,

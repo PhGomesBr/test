@@ -10,6 +10,7 @@ import { Cliente } from '../../cliente/cliente.model';
 import { FormaPagamento } from '../../formaPagamento/formaPagamento.model';
 import { ClienteContatoService } from '../../cliente/cliente.service';
 import { formaPagamentoService } from '../../formaPagamento/formaPagamento.service';
+import { VendaNotificacaoService } from '../vendaNotificacaoService.ts/VendaNotificacaoService';
 
 @Component({
   selector: 'app-venda-create',
@@ -33,7 +34,8 @@ export class VendaCreateComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private vendaService: VendaService,
-    private formaPagamentoService: formaPagamentoService
+    private formaPagamentoService: formaPagamentoService,
+    private vendaNotificacaoService: VendaNotificacaoService,
   ) {}
 
   generateVendaCodigo(): string {
