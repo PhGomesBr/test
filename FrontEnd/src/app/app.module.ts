@@ -54,6 +54,10 @@ import { VendaCrudComponent } from './views/venda-crud/venda-crud.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EstoqueBaixoComponent } from './component/estoque-baixo/estoque-baixo.component';
 import{ MatAutocompleteModule } from '@angular/material/autocomplete'; // Adicionado para autocompletar
+import { MatButtonModule } from '@angular/material/button';
+import { GraficoProdutosVendidosComponent } from './component/grafico-produtos-vendidos/grafico-produtos-vendidos.component';
+
+
 import { MatSortModule } from '@angular/material/sort'; // Adicionado
 @NgModule({
   declarations: [
@@ -92,6 +96,7 @@ import { MatSortModule } from '@angular/material/sort'; // Adicionado
     VendaReadComponent,
     VendaCrudComponent,
     EstoqueBaixoComponent,
+    GraficoProdutosVendidosComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,6 +122,7 @@ import { MatSortModule } from '@angular/material/sort'; // Adicionado
     BrowserAnimationsModule,
     MatAutocompleteModule, // Adicionado para autocompletar
     MatSortModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

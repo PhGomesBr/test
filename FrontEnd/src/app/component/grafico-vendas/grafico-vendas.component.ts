@@ -2,12 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartType, ChartData, ChartConfiguration, ChartDataset } from 'chart.js';
 import { Observable, interval, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { VendaSemana, VendaService } from '../venda/venda.service';
+import { VendaService } from '../venda/venda.service'; // Importa apenas o serviço
+import { VendaSemana } from '../venda/venda.model'; // Importa VendaSemana do model
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-// Plugin para exibir valores nas barras
-import 'chartjs-plugin-datalabels';
 import { VendaNotificacaoService } from '../venda/vendaNotificacaoService.ts/VendaNotificacaoService';
+import 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-grafico-vendas',
@@ -17,10 +16,8 @@ import { VendaNotificacaoService } from '../venda/vendaNotificacaoService.ts/Ven
 export class GraficoVendasComponent implements OnInit, OnDestroy {
   private vendaSubscription: Subscription = new Subscription();
 
-  // Tipo do gráfico fixado como "bar" (literal) para evitar erros de tipagem
-  public barChartType: 'bar' = 'bar'; // Corrigido para tipo literal
+  public barChartType: 'bar' = 'bar';
 
-  // Dados do gráfico (labels e valores)
   public barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: [
@@ -34,34 +31,33 @@ export class GraficoVendasComponent implements OnInit, OnDestroy {
     ]
   };
 
-  // Configurações do gráfico (responsividade, escalas, etc.)
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
     plugins: {
       legend: {
         position: 'top',
         labels: {
-          color: '#fff' // Cor da legenda (bom para temas escuros)
+          color: '#fff'
         }
       },
       tooltip: {
         enabled: true,
         callbacks: {
           label: (context) => {
-            const value = context.raw as number; // Força o tipo como número
+            const value = context.raw as number;
             return `${context.dataset.label}: R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
           }
         }
       },
       datalabels: {
-        anchor: 'end', // Posiciona o label no topo da barra
-        align: 'top', // Alinha o texto acima
-        color: '#fff', // Cor do texto (visível em fundo escuro)
+        anchor: 'end',
+        align: 'top',
+        color: '#fff',
         font: {
-          weight: 'bold', // Texto em negrito
-          size: 12 // Tamanho da fonte
+          weight: 'bold',
+          size: 12
         },
-        formatter: (value: number) => `R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` // Formata o valor
+        formatter: (value: number) => `R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
       }
     },
     scales: {
@@ -82,7 +78,7 @@ export class GraficoVendasComponent implements OnInit, OnDestroy {
         },
         ticks: { color: '#fff' },
         grid: { color: '#333' },
-        beginAtZero: true // Começa em zero para melhor visualização
+        beginAtZero: true
       }
     }
   };
@@ -94,10 +90,7 @@ export class GraficoVendasComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Carrega os dados do gráfico assim que o componente é inicializado
     this.atualizarGrafico();
-
-    // Atualiza o gráfico a cada 30 segundos para capturar novas vendas
     this.vendaSubscription = interval(30000)
       .pipe(switchMap(() => this.vendaService.getVendasPorSemana()))
       .subscribe({
@@ -108,22 +101,19 @@ export class GraficoVendasComponent implements OnInit, OnDestroy {
         }
       });
 
-    // Escuta notificações de novas vendas e atualiza o gráfico imediatamente
     this.vendaNotificacaoService.vendaCriada$.subscribe(() => {
-      console.log('Nova venda detectada, atualizando gráfico...'); // Depuração
+      console.log('Nova venda detectada, atualizando gráfico...');
       this.atualizarGrafico();
     });
   }
 
   ngOnDestroy(): void {
-    // Limpa a assinatura do intervalo para evitar memory leaks
     if (this.vendaSubscription) {
       this.vendaSubscription.unsubscribe();
     }
   }
 
   private atualizarGrafico(): void {
-    // Faz a requisição ao backend para obter os dados de vendas semanais
     this.vendaService.getVendasPorSemana().subscribe({
       next: (vendasSemanais) => this.processarDadosVendas(vendasSemanais),
       error: (err) => {
@@ -134,27 +124,20 @@ export class GraficoVendasComponent implements OnInit, OnDestroy {
   }
 
   private processarDadosVendas(vendasSemanais: VendaSemana[]): void {
-    // Ordena os dados por ano e semana para exibição cronológica
     vendasSemanais.sort((a, b) => {
       if (a.ano === b.ano) return a.semana - b.semana;
       return a.ano - b.ano;
     });
 
-    // Limita o gráfico às últimas 7 semanas (ajuste se quiser mais)
     const ultimasSemanas = vendasSemanais.slice(-7);
-
-    // Cria os labels (ex.: "2025 - Semana 31") e converte os valores para números
     const labels = ultimasSemanas.map(venda => `${venda.ano} - Semana ${venda.semana}`);
-    const data = ultimasSemanas.map(venda => Number(venda.totalVendas)); // Garante que sejam números
-
-    // Seleciona cores ciclicamente com base no número de semanas
-    const backgroundColors = this.barChartData.datasets[0].backgroundColor as string[]; // Cast seguro
+    const data = ultimasSemanas.map(venda => Number(venda.totalVendas));
+    const backgroundColors = this.barChartData.datasets[0].backgroundColor as string[];
     const cores = ultimasSemanas.map((_, index) => backgroundColors[index % backgroundColors.length]);
 
-    // Atualiza os dados do gráfico
     this.barChartData.labels = labels;
     this.barChartData.datasets[0].data = data;
     this.barChartData.datasets[0].backgroundColor = cores;
-    this.barChartData.datasets[0].borderColor = cores.map(color => color.replace('0.8', '1')); // Ajusta opacidade da borda
+    this.barChartData.datasets[0].borderColor = cores.map(color => color.replace('0.8', '1'));
   }
 }

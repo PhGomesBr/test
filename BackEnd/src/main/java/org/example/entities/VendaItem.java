@@ -16,6 +16,8 @@ public class VendaItem {
     @Column(name = "vit_id")
     private Long vitId;
 
+
+    
     @ManyToOne
     @JoinColumn(name = "ven_id", nullable = false)
     @JsonBackReference // Evita o ciclo infinito ao serializar

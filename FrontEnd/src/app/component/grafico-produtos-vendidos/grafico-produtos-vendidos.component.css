@@ -1,0 +1,20 @@
+.chart-container {
+  background: #1e1e1e; /* Fundo escuro para combinar com o tema */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin: 20px;
+}
+
+
+
+.chart-title {
+  color: #fff; /* Texto branco para tema escuro */
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+canvas {
+  max-height: 400px; /* Limita a altura do gráfico */
+}

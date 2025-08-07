@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -51,5 +52,12 @@ public class VendaResource {
     public ResponseEntity<Double> getLucroTotal() {
         Double lucroTotal = vendaService.getLucroTotal();
         return ResponseEntity.ok(lucroTotal);
+    }
+
+    // Endpoint para os dados do gráfico
+    @GetMapping("/grafico-produtos-mais-vendidos")
+    public ResponseEntity<Map<String, Object>> obterDadosGraficoProdutosMaisVendidos() {
+        Map<String, Object> chartData = vendaService.obterDadosGraficoProdutosMaisVendidos();
+        return ResponseEntity.ok(chartData);
     }
 }

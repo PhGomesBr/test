@@ -19,3 +19,13 @@ export interface VendaSemana {
   semana: number;
   totalVendas: number;
 }
+
+export interface ChartDataResponse {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    borderColor: string;
+    fill: boolean;
+  }[];
+}

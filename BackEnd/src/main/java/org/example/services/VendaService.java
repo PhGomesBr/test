@@ -1,5 +1,6 @@
 package org.example.services;
 
+import org.example.dto.ProdutoVendidoSemanaDto;
 import org.example.dto.VendaDto;
 import org.example.dto.VendaItemDto;
 import org.example.dto.VendaSemanaDto;
@@ -11,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -127,6 +126,62 @@ public class VendaService {
         Double lucro = vendaRepository.findLucroTotal();
         return lucro != null ? lucro : 0.0;
     }
+    public Map<String, Object> obterDadosGraficoProdutosMaisVendidos() {
+        // Chama a query do repositório
+        List<ProdutoVendidoSemanaDto> produtosVendidos = obterQuantidadeVendidaPorProdutoPorSemana();
 
+        // Cria labels únicos (ex.: "Semana 1/2025")
+        Set<String> labelsSet = produtosVendidos.stream()
+                .map(dto -> "Semana " + dto.getSemana() + "/" + dto.getAno())
+                .collect(Collectors.toCollection(TreeSet::new));
+        List<String> labels = new ArrayList<>(labelsSet);
+
+        // Agrupa dados por produto para criar datasets
+        Map<String, List<Long>> datasetsMap = new HashMap<>();
+        for (ProdutoVendidoSemanaDto dto : produtosVendidos) {
+            String produto = dto.getProNome();
+            datasetsMap.computeIfAbsent(produto, k -> new ArrayList<>(Collections.nCopies(labels.size(), 0L)));
+            int index = labels.indexOf("Semana " + dto.getSemana() + "/" + dto.getAno());
+            datasetsMap.get(produto).set(index, dto.getTotalQuantidade());
+        }
+
+        // Monta datasets com cores para as linhas
+        List<Map<String, Object>> datasets = new ArrayList<>();
+        List<String> colors = Arrays.asList(
+                "rgba(75, 192, 192, 0.5)", "rgba(255, 99, 132, 0.5)",
+                "rgba(54, 162, 235, 0.5)", "rgba(255, 206, 86, 0.5)"
+        );
+        int colorIndex = 0;
+
+        for (Map.Entry<String, List<Long>> entry : datasetsMap.entrySet()) {
+            Map<String, Object> dataset = new HashMap<>();
+            dataset.put("label", entry.getKey()); // Nome do produto
+            dataset.put("data", entry.getValue()); // Quantidades por semana
+            dataset.put("borderColor", colors.get(colorIndex % colors.size())); // Cor da linha
+            dataset.put("fill", false); // Não preenche a área sob a linha
+            datasets.add(dataset);
+            colorIndex++;
+        }
+
+        // Estrutura final para o Chart.js
+        Map<String, Object> chartData = new HashMap<>();
+        chartData.put("labels", labels);
+        chartData.put("datasets", datasets);
+        return chartData;
+    }
+
+    private List<ProdutoVendidoSemanaDto> obterQuantidadeVendidaPorProdutoPorSemana() {
+        List<Object[]> resultados = vendaItemRepository.findQuantidadeVendidaPorProdutoPorSemana();
+        List<ProdutoVendidoSemanaDto> listaDTO = new ArrayList<>();
+        for (Object[] linha : resultados) {
+            Long proId = ((Number) linha[0]).longValue();
+            String proNome = (String) linha[1];
+            Integer ano = (Integer) linha[2];
+            Integer semana = (Integer) linha[3];
+            Long totalQuantidade = ((Number) linha[4]).longValue();
+            listaDTO.add(new ProdutoVendidoSemanaDto(proId, proNome, ano, semana, totalQuantidade));
+        }
+        return listaDTO;
+    }
 
 }
