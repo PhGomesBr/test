@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartType, ChartData, ChartConfiguration, ChartDataset } from 'chart.js';
 import { Observable, interval, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { VendaService } from '../venda/venda.service'; // Importa apenas o serviço
-import { VendaSemana } from '../venda/venda.model'; // Importa VendaSemana do model
+import { VendaService } from '../venda/venda.service';
+import { VendaSemana } from '../venda/venda.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VendaNotificacaoService } from '../venda/vendaNotificacaoService.ts/VendaNotificacaoService';
 import 'chartjs-plugin-datalabels';
@@ -114,13 +114,17 @@ export class GraficoVendasComponent implements OnInit, OnDestroy {
   }
 
   private atualizarGrafico(): void {
-    this.vendaService.getVendasPorSemana().subscribe({
-      next: (vendasSemanais) => this.processarDadosVendas(vendasSemanais),
-      error: (err) => {
-        console.error('Erro ao carregar vendas semanais:', err);
-        this.snackBar.open('Erro ao carregar dados do gráfico', 'X', { duration: 3000 });
-      }
-    });
+    const fakeVendasSemanais: VendaSemana[] = [
+      { ano: 2025, semana: 27, totalVendas: 12000.50 },
+      { ano: 2025, semana: 28, totalVendas: 15000.75 },
+      { ano: 2025, semana: 29, totalVendas: 18000.20 },
+      { ano: 2025, semana: 30, totalVendas: 13500.00 },
+      { ano: 2025, semana: 31, totalVendas: 20000.30 },
+      { ano: 2025, semana: 32, totalVendas: 17000.60 },
+      { ano: 2025, semana: 33, totalVendas: 21000.90 }
+    ];
+
+    this.processarDadosVendas(fakeVendasSemanais);
   }
 
   private processarDadosVendas(vendasSemanais: VendaSemana[]): void {

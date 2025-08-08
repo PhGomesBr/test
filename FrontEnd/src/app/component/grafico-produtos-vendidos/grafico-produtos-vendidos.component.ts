@@ -1,4 +1,3 @@
-// src/app/component/grafico-produtos-vendidos/grafico-produtos-vendidos.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartType, ChartData, ChartConfiguration } from 'chart.js';
 import { Observable, interval, Subscription } from 'rxjs';
@@ -72,7 +71,8 @@ export class GraficoProdutosVendidosComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.atualizarGrafico();
+    // Carregar dados fictícios inicialmente
+    this.carregarDadosFicticios();
     this.vendaSubscription = interval(30000)
       .pipe(switchMap(() => this.vendaService.getProdutosMaisVendidos()))
       .subscribe({
@@ -103,6 +103,33 @@ export class GraficoProdutosVendidosComponent implements OnInit, OnDestroy {
         this.snackBar.open('Erro ao carregar dados do gráfico', 'X', { duration: 3000 });
       }
     });
+  }
+
+  private carregarDadosFicticios(): void {
+    const dadosFicticios: ChartDataResponse = {
+      labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5'],
+      datasets: [
+        {
+          label: 'Produto A',
+          data: [20, 35, 15, 40, 30],
+          borderColor: '#FF6384',
+          fill: true
+        },
+        {
+          label: 'Produto B',
+          data: [10, 25, 30, 20, 35],
+          borderColor: '#36A2EB',
+          fill: true
+        },
+        {
+          label: 'Produto C',
+          data: [15, 20, 25, 10, 15],
+          borderColor: '#FFCE56',
+          fill: true
+        }
+      ]
+    };
+    this.processarDadosGrafico(dadosFicticios);
   }
 
   private processarDadosGrafico(data: ChartDataResponse): void {

@@ -1,7 +1,7 @@
 /* Estilo do contêiner do gráfico */
 .chart-container {
     width: 100%;
-    max-width: 800px; /* Define uma largura máxima */
+    max-width: 550px; /* Define uma largura máxima */
     margin: 0 auto; /* Centraliza o gráfico na página */
     padding: 20px; /* Adiciona espaço ao redor do gráfico */
     background: linear-gradient(145deg, #1e1e2f, #2e2e3f); /* Fundo com gradiente */
